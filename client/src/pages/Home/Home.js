@@ -3,7 +3,7 @@ import Layout from "../../Component/Layout";
 import { useAuth } from "../../context/auth";
 
 const Home = () => {
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   return (
     <Layout tittel={"Home E-Commerce"}>
       Home
