@@ -14,8 +14,6 @@ import Dashboard from "./pages/users/dashboard";
 const App = () => {
   return (
     <>
-      {/* hello */}
-
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
