@@ -7,13 +7,13 @@ const Dashboard = () => {
   const [auth] = useAuth();
   return (
     <Layout title={"User Dashboard"}>
-      <div className="container-fluid">
+      <div className="container-fluid" style={{height:"85vh"}}>
         <div className="row">
           <div className="col-md-3 p-3 m-3">
             {" "}
             <Usermenu />
           </div>
-          <div className="col-md-8 p-3 m-3">
+          <div className="col-md-8 p-3 m-1">
             <div className="card">
               <div className="d-flex">
                 <h1>NAME:</h1>

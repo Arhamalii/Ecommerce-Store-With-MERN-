@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Usermenu = () => {
   return (
     <>
-      <div className="text-center" style={{ height: "85vh" }}>
+      <div className="text-center" >
         <div className="list-group">
           <h4>User Pannel</h4>
           <Link

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Adminmenu = () => {
   return (
     <>
-      <div className="text-center" style={{ height: "85vh" }}>
+      <div className="text-center">
         <div className="list-group">
           <h4>Admin Panel</h4>
           <Link

@@ -1,16 +1,19 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
 
+
 const Header = () => {
+  const Navigate= useNavigate()
   const [auth, setAuth] = useAuth();
   const handleLogout = () => {
     setAuth({ ...auth, user: null, token: "" });
     localStorage.removeItem("auth");
     setTimeout(() => {
       toast.success("Logout Succesfully");
+      Navigate("/home")
     }, 50);
   };
 
