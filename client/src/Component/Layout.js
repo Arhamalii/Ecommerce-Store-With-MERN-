@@ -8,21 +8,21 @@ const Layout = ({ children, title, description, keywords, author }) => {
   return (
     <>
       <div>
+        <Helmet>
         <meta charSet="utf-8" />
         <title>{title}</title>
-        <Helmet>
           <meta name="description" content={description} />
           <meta name="keywords" content={keywords} />
           <meta name="author" content={author} />
         </Helmet>
-      </div>
 
       <Header />
-      <main style={{ height: "76vh" }}>
+      <main style={{ height: "100%" }}>
         <Toaster />
         {children}
       </main>
       <Footer />
+      </div>
     </>
   );
 };

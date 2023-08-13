@@ -69,7 +69,7 @@ const Header = () => {
                     >
                       <li>
                         <Link
-                          to={"/dashboard"}
+                          to={`/dashboard/${auth?.user?.role === 1 ? "admin":"user"}`}
                           className="dropdown-item"
                           style={dropDownStyle}
                         >
