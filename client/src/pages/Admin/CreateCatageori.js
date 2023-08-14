@@ -1,18 +1,166 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../Component/Layout";
 import Adminmenu from "../../Component/Adminmenu";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { Table } from "react-bootstrap";
+import { Modal } from "antd";
+import Catageoryform from "../../Component/form/Catageoryform";
 
 const Catageroy = () => {
+  const [categeroy, setCategeroy] = useState([]);
+  const [name, setName] = useState("");
+  const [visible, setvisible] = useState(false);
+  const [slected, setSlected] = useState(null);
+  const [updateName, setUpdatedName] = useState("");
+
+  // form handlers
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post("/api/v1/category/create-category", {
+        name,
+      });
+      if (data?.success) {
+        toast.success(`${name} is created successfully`);
+        getAllCatagers();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("some thing went wrong in input form ");
+    }
+  };
+
+  // get all catagers items from backend
+  const getAllCatagers = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/category/category");
+      if (data.success) {
+        setCategeroy(data.allCategories);
+        setName("");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("some thing went wrong in get-category");
+    }
+  };
+
+  useEffect(() => {
+    getAllCatagers();
+  }, []);
+
+  // update catgeory
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.put(
+        `/api/v1/category/update-category/${slected._id}`,
+        { name: updateName }
+      );
+      if (data.success) {
+        toast.success(`${updateName} is updated `);
+        setSlected(null);
+        setUpdatedName("");
+        setvisible(false);
+        getAllCatagers();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("some thing went wrong 1");
+      console.log(error);
+    }
+  };
+
+  // Delete catgeory
+
+  const handleDelete = async (pid) => {
+    try {
+      const { data } = await axios.delete(
+        `/api/v1/category/delete-category/${pid}`
+      );
+      if (data.success) {
+        toast.success(`catageory is delete `);
+        getAllCatagers();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("some thing went wrong 1");
+      console.log(error);
+    }
+  };
   return (
     <Layout title={"Create Catageroy"}>
-      <div style={{ height: "85vh" }}>
-      <div className="container-fluid ">
-        <div className="row">
-          <div className="col-md-3  p-3 m-3">
-            <Adminmenu />
+      <div style={{ minHeight: "85vh" }}>
+        <div className="container-fluid ">
+          <div className="row">
+            <div className="col-md-3 p-3">
+              <Adminmenu />
+            </div>
+            <div className="col-md-6  p-3">
+              <h1> manage Catageroy</h1>
+              <div className="p-3 w-40">
+                <Catageoryform
+                  handleSubmit={handleSubmit}
+                  value={name}
+                  setValue={setName}
+                />
+              </div>
+              <Table className="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {categeroy?.map((c) => (
+                    <>
+                      <tr className="fs-5" key={c._id}>
+                        <td >{c.name}</td>
+                        <td>
+                          <button
+                            className="btn btn-primary ms-2"
+                            onClick={() => {
+                              setvisible(true);
+                              setName(c.name);
+                              setSlected(c);
+                            }}
+                          >
+                            Edit
+                          </button>{" "}
+                          <button
+                            className="btn btn-danger  ms-2"
+                            onClick={() => {
+                              handleDelete(c._id);
+                            }}
+                          >
+                            Delete
+                          </button>{" "}
+                        </td>
+                      </tr>
+                    </>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
+
+            <Modal
+              onCancel={() => setvisible(false)}
+              footer={null}
+              open={visible}
+            >
+              <Catageoryform
+                value={updateName}
+                setValue={setUpdatedName}
+                handleSubmit={handleUpdate}
+              />
+            </Modal>
           </div>
-          <div className="col-md-6  p-3 m-3">Create catageroy</div>
-        </div>
         </div>
       </div>
     </Layout>

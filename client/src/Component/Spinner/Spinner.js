@@ -23,7 +23,7 @@ const Spinner = ( {path ="login"}) => {
   return (
     <div className="custom-container">
       <h3>You Will Be Redirected In {count} Seconds</h3>
-      <span class="loader"></span>
+      <span className="loader"></span>
     </div>
   );
 };
