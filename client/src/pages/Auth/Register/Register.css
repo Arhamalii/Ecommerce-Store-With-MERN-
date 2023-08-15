@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 85vh;
+  min-height: 76vh;
   flex-direction: column;
   background-color: #ffdee9;
   background-image: linear-gradient(0deg, #ffdee9 0%, #b5fffc 100%);

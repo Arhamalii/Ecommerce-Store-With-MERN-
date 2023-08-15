@@ -6,7 +6,7 @@ import "./Contact.css";
 
 const Contact = () => {
   return (
-    <Layout title={"Contact us E-Commerce"}>
+    <Layout tittel={"Contact us E-Commerce"}>
       <div className="contact">
         <div className="left">
           <h2>Contact Us </h2>
