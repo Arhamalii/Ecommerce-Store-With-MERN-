@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Layout from "../../Component/Layout";
-import "./pagenotfound.css"
-
+import "./pagenotfound.css";
 
 const Pagenotfound = () => {
   return (
@@ -12,8 +11,11 @@ const Pagenotfound = () => {
           <h2>404</h2>
           <h3>Oops ! Page Not Found</h3>
           <p>
-        <Link to="/home"><button  className="Btn"  type="button">Go Back</button></Link>
-            
+            <Link to="/home" style={{ textDecoration: "none" }}>
+              <button className="Btn" type="button">
+                Go Back
+              </button>
+            </Link>
           </p>
         </div>
       </div>
