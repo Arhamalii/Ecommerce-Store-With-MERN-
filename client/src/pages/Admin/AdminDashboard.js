@@ -1,19 +1,19 @@
 import React from "react";
 import Layout from "../../Component/Layout";
-import Usermenu from "../../Component/Usermenu";
+import Adminmenu from "../../Component/Adminmenu";
 import { useAuth } from "../../context/auth";
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   const [auth] = useAuth();
   return (
-    <Layout title={"User Dashboard"}>
+    <Layout title={"Admin Dashboard"} >
       <div className="container-fluid" style={{height:"85vh"}}>
         <div className="row">
           <div className="col-md-3 p-3 m-3">
             {" "}
-            <Usermenu />
+            <Adminmenu />
           </div>
-          <div className="col-md-8 p-3 m-1">
+          <div className="col-md-8 p-3 m-3">
             <div className="card">
               <div className="d-flex">
                 <h1>NAME:</h1>
@@ -36,4 +36,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

@@ -1,13 +1,19 @@
 import React from "react";
 import Layout from "../../Component/Layout";
 import { useAuth } from "../../context/auth";
+import "./Home.css"
+
 
 const Home = () => {
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   return (
-    <Layout tittel={"Home E-Commerce"}>
+    <Layout title={"Home E-Commerce"}>
+
+    <div className="home">
+
       Home
       <pre> {JSON.stringify(auth, null, 4)}</pre>
+    </div>
     </Layout>
   );
 };
