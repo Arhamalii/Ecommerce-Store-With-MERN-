@@ -1,26 +1,27 @@
 import { Select } from "antd";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Adminmenu from "../../Component/Adminmenu";
 import Layout from "../../Component/Layout";
 const { Option } = Select;
 
-const CreateProduct = () => {
+const UpdateProduct = () => {
   const Naviagte = useNavigate();
+  const params = useParams();
 
-  const [category, setCategory] = useState("");
   const [input, setInput] = useState({
     name: "",
     price: "",
     description: "",
     categories: [],
+    category: "",
+    id: "",
     quantity: "",
     shipping: "",
     photo: null,
   });
-
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get("/api/v1/category/category");
@@ -36,6 +37,33 @@ const CreateProduct = () => {
     //eslint-disable-next-line
   }, []);
 
+  // for fetching single product
+  const getSingleProduct = async () => {
+    try {
+      const { data } = await axios.get(
+        `/api/v1/products/get-product/${params.slug}`
+      );
+      const product = await data?.singleProduct;
+      setInput({
+        ...input,
+        name: product.name,
+        id: product._id,
+        price: product.price,
+        quantity: product.quantity,
+        description: product.description,
+        shipping: product.shipping,
+        category: product.category._id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getSingleProduct();
+    //eslint-disable-next-line
+  }, []);
+
   const inputChangeHandler = (e) => {
     console.log(input);
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -45,18 +73,18 @@ const CreateProduct = () => {
     e.preventDefault();
     try {
       const productData = new FormData();
-      productData.append("category", category);
+      productData.append("category", input.category);
       productData.append("name", input.name);
       productData.append("price", input.price);
       productData.append("quantity", input.quantity);
       productData.append("description", input.description);
-      productData.append("photo", input.photo);
-      const res = await axios.post(
-        "/api/v1/products/create-product",
+      input.photo && productData.append("photo", input.photo);
+      const res = await axios.put(
+        `/api/v1/products/update-product/${input.id}`,
         productData
       );
       if (res.data.success) {
-        toast.success("Product Created Successfully");
+        toast.success("Product Updated Successfully");
         Naviagte("/dashboard/admin/products");
       } else {
         toast.error(res.data.message);
@@ -67,8 +95,21 @@ const CreateProduct = () => {
     }
   };
 
+  //delete product
+  const handleDelete = async () => {
+    try {
+      const res = await axios.delete(`/api/v1/products/product/${input.id}`);
+      if (res.data.success) {
+        toast.success("Product deleted Successfully");
+        Naviagte("/dashboard/admin/products");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
   return (
-    <Layout title={"Create Product"}>
+    <Layout title={"Update Product"}>
       <div style={{ height: "85vh" }}>
         <div className="container-fluid ">
           <div className="row">
@@ -76,7 +117,7 @@ const CreateProduct = () => {
               <Adminmenu />
             </div>
             <div className="col-md-8  p-3 m-3">
-              <h1>Create product</h1>
+              <h1>Update product</h1>
 
               <div className="m-1 w-75">
                 <Select
@@ -87,8 +128,9 @@ const CreateProduct = () => {
                   showSearch
                   className="form-select mb-3"
                   onChange={(value) => {
-                    setCategory(value);
+                    setInput({ ...input, category: value });
                   }}
+                  value={input.category}
                 >
                   {input.categories.map((c) => (
                     <Option
@@ -115,10 +157,23 @@ const CreateProduct = () => {
                   </label>
                 </div>
                 <div className="mb-3">
-                  {input.photo && (
+                  {input.photo ? (
                     <div className="text-center ">
                       <img
                         src={URL.createObjectURL(input.photo)}
+                        alt="Product"
+                        style={{ maxWidth: "100%", height: "200px" }}
+                        className="img img-responsive"
+                      />
+                    </div>
+                  ) : (
+                    <div className="text-center ">
+                      <img
+                        src={
+                          input.id
+                            ? `/api/v1/products/product-photo/${input.id} `
+                            : ""
+                        }
                         alt="Product"
                         style={{ maxWidth: "100%", height: "200px" }}
                         className="img img-responsive"
@@ -171,13 +226,17 @@ const CreateProduct = () => {
                     onChange={(value) =>
                       setInput({ ...input, shipping: value })
                     }
+                    value={input.shipping ? "Yes" : " No"}
                   >
                     <Option value={0}>No</Option>
                     <Option value={1}>Yes</Option>
                   </Select>
                   <div className="mb-3">
                     <button className="btn btn-primary" onClick={handleCreate}>
-                      Create Product
+                      Update Product
+                    </button>
+                    <button className="btn btn-danger" onClick={handleDelete}>
+                      Delete Product
                     </button>
                   </div>
                 </div>
@@ -190,4 +249,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default UpdateProduct;
