@@ -1,7 +1,14 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import AdminRoute from "./Component/Routes/AdminRoute";
 import PrivateRoute from "./Component/Routes/Private";
 import About from "./pages/About/About";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import Catageroy from "./pages/Admin/CreateCatageori";
+import CreateProduct from "./pages/Admin/CreateProduct";
+import Products from "./pages/Admin/Products";
+import UpdateProduct from "./pages/Admin/UpdateProduct";
+import User from "./pages/Admin/User";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import Login from "./pages/Auth/Login/login";
 import Register from "./pages/Auth/Register/Register";
@@ -9,15 +16,9 @@ import Contact from "./pages/Contact/Contact";
 import Home from "./pages/Home/Home";
 import Pagenotfound from "./pages/PageNotFound/Pagenotfound";
 import Policy from "./pages/Policy/Policy";
-import Dashboard from "./pages/users/dashboard";
-import AdminRoute from "./Component/Routes/AdminRoute";
-import AdminDashboard from "./pages/Admin/AdminDashboard";
-import Catageroy from "./pages/Admin/CreateCatageori";
-import Product from "./pages/Admin/CreateProduct";
-import User from "./pages/Admin/User";
-import Profile from "./pages/users/Profile";
 import Orders from "./pages/users/Orders";
-
+import Profile from "./pages/users/Profile";
+import Dashboard from "./pages/users/dashboard";
 
 const App = () => {
   return (
@@ -34,15 +35,18 @@ const App = () => {
           <Route path="user" element={<Dashboard />} />
           <Route path="user/profile" element={<Profile />} />
           <Route path="user/orders" element={<Orders />} />
-
         </Route>
 
-          <Route path="/dashboard" element={<AdminRoute />}>
+        <Route path="/dashboard" element={<AdminRoute />}>
           <Route path="admin" element={<AdminDashboard />} />
-          <Route path="admin/catageroy" element={<Catageroy />} />
-          <Route path="admin/product" element={<Product />} />
+          <Route path="admin/create-catageroy" element={<Catageroy />} />
+          <Route path="admin/create-product" element={<CreateProduct />} />
+          <Route path="admin/products" element={<Products />} />
+          <Route
+            path="admin/update-product/:slug"
+            element={<UpdateProduct />}
+          />
           <Route path="admin/user" element={<User />} />
-  
         </Route>
 
         <Route path="/login" element={<Login />} />
