@@ -10,22 +10,35 @@ const createProductController = async (req, res) => {
 
     //validation
     switch (true) {
-      case !name:
-        return res.status(500).send({ error: "Name is required" });
-      case !description:
-        return res.status(500).send({ error: "Description is required" });
-      case !price:
-        return res.status(500).send({ error: "Price is required" });
       case !category:
-        return res.status(500).send({ error: "Category is required" });
-      case !quantity:
-        return res.status(500).send({ error: "Quantity is required" });
-      case !photo:
-        return res.status(500).send({ error: "Photo is required" });
-      case photo && photo.size > 1000000:
         return res
-          .status(500)
-          .send({ error: "Photo is required and must me less than 1mb" });
+          .status(200)
+          .send({ success: false, message: "Category is required" });
+      case !photo:
+        return res
+          .status(200)
+          .send({ success: false, message: "Photo is required" });
+      case photo && photo.size > 1000000:
+        return res.status(200).send({
+          success: false,
+          message: "Photo Must be less than 1mb",
+        });
+      case !name:
+        return res
+          .status(200)
+          .send({ success: false, message: "Name is required" });
+      case !price:
+        return res
+          .status(200)
+          .send({ success: false, message: "Price is required" });
+      case !quantity:
+        return res
+          .status(200)
+          .send({ success: false, message: "Quantity is required" });
+      case !description:
+        return res
+          .status(200)
+          .send({ success: false, message: "Description is required" });
     }
 
     const products = new productModel({ ...req.fields, slug: slugify(name) });
