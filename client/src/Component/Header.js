@@ -79,7 +79,7 @@ const Header = () => {
                           Dashboard
                         </Link>
                       </li>
-                      <l>
+                      <li>
                         <Link
                           onClick={handleLogout}
                           className="dropdown-item"
@@ -87,7 +87,7 @@ const Header = () => {
                         >
                           Logout
                         </Link>
-                      </l>
+                      </li>
                     </ul>
                   </li>
                 </>

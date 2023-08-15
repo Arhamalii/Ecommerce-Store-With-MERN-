@@ -119,7 +119,7 @@ const Catageroy = () => {
                 </thead>
                 <tbody>
                   {categeroy?.map((c) => (
-                    <>
+                    
                       <tr className="fs-5" key={c._id}>
                         <td >{c.name}</td>
                         <td>
@@ -143,7 +143,7 @@ const Catageroy = () => {
                           </button>{" "}
                         </td>
                       </tr>
-                    </>
+                   
                   ))}
                 </tbody>
               </Table>
