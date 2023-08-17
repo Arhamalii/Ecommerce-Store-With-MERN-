@@ -7,6 +7,7 @@ const {
   getProductPhotoController,
   deleteProductController,
   updateProductController,
+  productFilterController,
 } = require("../controllers/productController");
 const formidable = require("express-formidable");
 const router = express.Router();
@@ -56,4 +57,21 @@ router.get("/product-photo/:pid", getProductPhotoController);
 // @desc delete product
 
 router.delete("/product/:id", deleteProductController);
+
+
+
+
+
+// @method Filter 
+// @acess public
+// @desc Filter product
+
+router.post("/product-filters",productFilterController);
+
+
+
+
+
+
+
 module.exports = router;
