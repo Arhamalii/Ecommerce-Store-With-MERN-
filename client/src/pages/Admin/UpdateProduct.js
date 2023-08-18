@@ -21,7 +21,9 @@ const UpdateProduct = () => {
     quantity: "",
     shipping: "",
     photo: null,
+    oldPhoto: null,
   });
+
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get("/api/v1/category/category");
@@ -43,7 +45,7 @@ const UpdateProduct = () => {
       const { data } = await axios.get(
         `/api/v1/products/get-product/${params.slug}`
       );
-      const product = await data?.singleProduct;
+      const product = data?.singleProduct;
       setInput({
         ...input,
         name: product.name,
@@ -52,28 +54,41 @@ const UpdateProduct = () => {
         quantity: product.quantity,
         description: product.description,
         shipping: product.shipping,
-        category: product.category._id,
+        category: product.category,
       });
     } catch (error) {
       console.log(error);
     }
   };
 
+  const getPhotoHandler = async () => {
+    if (input.id) {
+      const res = await axios.get(
+        `/api/v1/products/product-photo/${input?.id} `
+      );
+      setInput({ ...input, oldPhoto: res.data });
+      console.log("photoSetted", res);
+    }
+  };
+  // get product initial one time
   useEffect(() => {
     getSingleProduct();
+    getPhotoHandler();
+
     //eslint-disable-next-line
   }, []);
 
+  // input change
   const inputChangeHandler = (e) => {
-    console.log(input);
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
+  // update product
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
       const productData = new FormData();
-      productData.append("category", input.category);
+      productData.append("category", input?.category?._id);
       productData.append("name", input.name);
       productData.append("price", input.price);
       productData.append("quantity", input.quantity);
@@ -83,7 +98,7 @@ const UpdateProduct = () => {
         `/api/v1/products/update-product/${input.id}`,
         productData
       );
-      if (res.data.success) {
+      if (true) {
         toast.success("Product Updated Successfully");
         Naviagte("/dashboard/admin/products");
       } else {
@@ -130,12 +145,16 @@ const UpdateProduct = () => {
                   onChange={(value) => {
                     setInput({ ...input, category: value });
                   }}
-                  value={input.category}
+                  value={
+                    input?.category?.name
+                      ? input?.category?.name
+                      : input?.category
+                  }
                 >
-                  {input.categories.map((c) => (
+                  {input?.categories.map((c) => (
                     <Option
-                      key={c._id}
-                      value={c._id}
+                      key={c?._id}
+                      value={c.name}
                       style={{ color: "black" }}
                     >
                       {c.name}
@@ -169,11 +188,13 @@ const UpdateProduct = () => {
                   ) : (
                     <div className="text-center ">
                       <img
-                        src={
-                          input.id
-                            ? `/api/v1/products/product-photo/${input.id} `
-                            : ""
-                        }
+                        // src={
+                        //   input.id
+                        //     ? `/api/v1/products/product-photo/${input.id} `
+                        //     : ""
+                        // }
+
+                        src={input.oldPhoto}
                         alt="Product"
                         style={{ maxWidth: "100%", height: "200px" }}
                         className="img img-responsive"

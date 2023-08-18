@@ -16,6 +16,8 @@ import Contact from "./pages/Contact/Contact";
 import Home from "./pages/Home/Home";
 import Pagenotfound from "./pages/PageNotFound/Pagenotfound";
 import Policy from "./pages/Policy/Policy";
+import ProductDetail from "./pages/Products/ProductDetail";
+import Search from "./pages/Products/Search";
 import Orders from "./pages/users/Orders";
 import Profile from "./pages/users/Profile";
 import Dashboard from "./pages/users/dashboard";
@@ -25,6 +27,8 @@ const App = () => {
     <>
       <Routes>
         <Route path="/home" element={<Home />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/product/:slug" element={<ProductDetail />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/policy" element={<Policy />} />
