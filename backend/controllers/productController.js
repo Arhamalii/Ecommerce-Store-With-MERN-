@@ -2,6 +2,7 @@ const { log } = require("console");
 const productModel = require("../models/productModel");
 const fs = require("fs");
 const slugify = require("slugify");
+const CategoryModel = require("../models/categoryModel");
 
 const createProductController = async (req, res) => {
   try {
@@ -209,6 +210,7 @@ const updateProductController = async (req, res) => {
   }
 };
 
+
 const productFilterController = async (req, res) => {
   try {
     const { checked, radio } = req.body;
@@ -217,15 +219,72 @@ const productFilterController = async (req, res) => {
     if (checked.length > 0) args.category = checked;
     if (radio) args.price = { $gte: radio[0], $lte: radio[1] };
     const products = await productModel.find(args);
+
+// search controller
+const searchProductController = async (req, res) => {
+  try {
+    const { keyword } = req.params;
+    const result = await productModel
+      .find({
+        $or: [
+          { name: { $regex: keyword, $options: "i" } },
+          { description: { $regex: keyword, $options: "i" } },
+        ],
+      })
+      .select("-photo");
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Searching product",
+      error,
+    });
+  }
+};
+
+const relatedProductController = async (req, res) => {
+  try {
+    const { pid, cid } = req.params;
+    const products = await productModel
+      .find({
+        category: cid,
+        _id: { $ne: pid },
+      })
+      .select("-photo")
+      .limit(3)
+      .populate("category");
     res.status(200).send({
       success: true,
       products,
     });
   } catch (error) {
     console.log(error);
-    res.status(400).send({
+    res.status(500).send({
       success: false,
-      message: "Error whilte filter product",
+      message: "Error while getting realted Products ",
+      error,
+    });
+  }
+};
+
+
+// category wise products
+
+const categoryWiseProductController = async (req, res) => {
+  try {
+    const category = await CategoryModel.findOne({ slug: req.params.slug });
+    const products = await productModel.find({ category }).populate("category");
+    res.status(200).send({
+      success: true,
+      category,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Eror while getting category wise ",
       error,
     });
   }
@@ -239,4 +298,8 @@ module.exports = {
   deleteProductController,
   updateProductController,
   productFilterController,
+  searchProductController,
+  relatedProductController,
+  categoryWiseProductController,
+
 };

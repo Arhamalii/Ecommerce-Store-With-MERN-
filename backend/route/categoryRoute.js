@@ -38,12 +38,7 @@ router.get("/category", getAllCategoryController);
 // @method GET
 // @acess only admin
 // @desc get category by name/slug
-router.get(
-  "/category/:slug",
-  requireSignIn,
-  isAdmin,
-  getCategoryByIdController
-);
+router.get("/category/:slug", getCategoryByIdController);
 
 // @method DELETE
 // @acess only admin
