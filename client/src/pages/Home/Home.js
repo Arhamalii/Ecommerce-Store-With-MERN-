@@ -1,9 +1,9 @@
+import { Checkbox, Radio } from "antd";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Layout from "../../Component/Layout";
-import axios from "axios";
-import { Checkbox, Radio } from "antd";
-import "./Home.css";
 import { prices } from "../../Component/Prices";
+import "./Home.css";
 
 const Home = () => {
   const [products, setProduct] = useState([]);
@@ -15,7 +15,7 @@ const Home = () => {
   const getAllCatagers = async () => {
     try {
       const { data } = await axios.get("/api/v1/category/category");
-      if (data.success) {
+      if (data?.success) {
         setCatageory(data.allCategories);
       }
     } catch (error) {
@@ -25,6 +25,7 @@ const Home = () => {
 
   useEffect(() => {
     getAllCatagers();
+    // eslint-disable-next-line
   }, []);
 
   // get all product from backend
@@ -32,10 +33,15 @@ const Home = () => {
     try {
       const { data } = await axios.get("/api/v1/products/get-product");
       setProduct(data.allProducts);
+      console.log(data?.allProducts);
     } catch (error) {
       console.log(error);
     }
   };
+
+  // useEffect(() => {
+  //   console.log(products);
+  // });
 
   useEffect(() => {
     if (!checked.length || !radio.length) getAllProducts();
@@ -43,8 +49,6 @@ const Home = () => {
 
   useEffect(() => {
     if (checked.length || radio.length) filterProduct();
-
-  
   }, [checked, radio]);
 
   // filter by category
@@ -62,7 +66,7 @@ const Home = () => {
   // get filter product from backend
   const filterProduct = async () => {
     try {
-      const { data } = await axios.post("/api/products/product-filters", {
+      const { data } = await axios.post("/api/v1/products/product-filters", {
         checked,
         radio,
       });
@@ -78,10 +82,10 @@ const Home = () => {
         <div className="row" style={{ minHeight: "85vh" }}>
           <div className=" col-md-3">
             <div className="text">
-              {/*           filter by price                         */}
+              {/*                    filter by price                 */}
               <h4>Filter By catageory</h4>
               <div className="d-flex flex-column">
-                {catageory.map((c) => (
+                {catageory?.map((c) => (
                   <Checkbox
                     key={c._id}
                     onChange={(e) => handlerFilter(e.target.checked, c._id)}
@@ -113,13 +117,14 @@ const Home = () => {
                 <div key={p._id}>
                   <div className="card m-2 " style={{ width: "18rem" }}>
                     <img
-                      src={`/api/v1/products/product-photo/${p._id} `}
+                      src={`/api/v1/products/product-photo/${p._id}`}
                       className="card-img-top"
                       alt={p.name}
                     />
                     <div className="card-body">
                       <h5 className="card-title">{p.name}</h5>
                       <p className="card-text">{p.description}</p>
+                      <p className="card-text">{p.price}</p>
                     </div>
                   </div>
                 </div>
