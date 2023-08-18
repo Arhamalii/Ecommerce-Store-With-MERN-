@@ -37,9 +37,6 @@ const ProductDetail = () => {
         `/api/v1/products/related-product/${pid}/${cid}`
       );
       setRelatedProducts(data?.products);
-      // product
-      //   ? console.log("c id ", product.category._id, product._id)
-      //   : console.log("error");
     } catch (error) {
       console.log(error);
     }

@@ -1,6 +1,7 @@
 const productModel = require("../models/productModel");
 const fs = require("fs");
 const slugify = require("slugify");
+const CategoryModel = require("../models/categoryModel");
 
 const createProductController = async (req, res) => {
   try {
@@ -255,6 +256,27 @@ const relatedProductController = async (req, res) => {
     });
   }
 };
+
+// category wise products
+
+const categoryWiseProductController = async (req, res) => {
+  try {
+    const category = await CategoryModel.findOne({ slug: req.params.slug });
+    const products = await productModel.find({ category }).populate("category");
+    res.status(200).send({
+      success: true,
+      category,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Eror while getting category wise ",
+      error,
+    });
+  }
+};
 module.exports = {
   createProductController,
   getProductController,
@@ -264,4 +286,5 @@ module.exports = {
   updateProductController,
   searchProductController,
   relatedProductController,
+  categoryWiseProductController,
 };
