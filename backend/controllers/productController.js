@@ -208,6 +208,53 @@ const updateProductController = async (req, res) => {
   }
 };
 
+// search controller
+const searchProductController = async (req, res) => {
+  try {
+    const { keyword } = req.params;
+    const result = await productModel
+      .find({
+        $or: [
+          { name: { $regex: keyword, $options: "i" } },
+          { description: { $regex: keyword, $options: "i" } },
+        ],
+      })
+      .select("-photo");
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Searching product",
+      error,
+    });
+  }
+};
+
+const relatedProductController = async (req, res) => {
+  try {
+    const { pid, cid } = req.params;
+    const products = await productModel
+      .find({
+        category: cid,
+        _id: { $ne: pid },
+      })
+      .select("-photo")
+      .limit(3)
+      .populate("category");
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error while getting realted Products ",
+      error,
+    });
+  }
+};
 module.exports = {
   createProductController,
   getProductController,
@@ -215,4 +262,6 @@ module.exports = {
   getProductPhotoController,
   deleteProductController,
   updateProductController,
+  searchProductController,
+  relatedProductController,
 };

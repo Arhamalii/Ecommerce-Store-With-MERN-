@@ -1,19 +1,19 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
-
+import SearchForm from "./form/SearchForm";
 
 const Header = () => {
-  const Navigate= useNavigate()
+  const Navigate = useNavigate();
   const [auth, setAuth] = useAuth();
   const handleLogout = () => {
     setAuth({ ...auth, user: null, token: "" });
     localStorage.removeItem("auth");
     setTimeout(() => {
       toast.success("Logout Succesfully");
-      Navigate("/home")
+      Navigate("/home");
     }, 50);
   };
 
@@ -36,6 +36,7 @@ const Header = () => {
               🛒 Shoppad
             </Link>
           </Navbar.Brand>
+          <SearchForm />
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ms-auto">
@@ -72,7 +73,9 @@ const Header = () => {
                     >
                       <li>
                         <Link
-                          to={`/dashboard/${auth?.user?.role === 1 ? "admin":"user"}`}
+                          to={`/dashboard/${
+                            auth?.user?.role === 1 ? "admin" : "user"
+                          }`}
                           className="dropdown-item"
                           style={dropDownStyle}
                         >
