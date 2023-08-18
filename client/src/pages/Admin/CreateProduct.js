@@ -69,7 +69,7 @@ const CreateProduct = () => {
 
   return (
     <Layout title={"Create Product"}>
-      <div style={{ height: "85vh" }}>
+      <div style={{ minheight: "85vh" }}>
         <div className="container-fluid ">
           <div className="row">
             <div className="col-md-3  p-3 m-3">

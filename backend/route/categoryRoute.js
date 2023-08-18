@@ -33,7 +33,7 @@ router.put(
 // @method GET
 // @acess only admin
 // @desc get all category
-router.get("/category", requireSignIn, isAdmin, getAllCategoryController);
+router.get("/category", getAllCategoryController);
 
 // @method GET
 // @acess only admin

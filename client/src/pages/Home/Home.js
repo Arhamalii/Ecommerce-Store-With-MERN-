@@ -49,6 +49,7 @@ const Home = () => {
 
   useEffect(() => {
     if (checked.length || radio.length) filterProduct();
+    // eslint-disable-next-line
   }, [checked, radio]);
 
   // filter by category
@@ -70,6 +71,7 @@ const Home = () => {
         checked,
         radio,
       });
+      console.log(data?.products);
       setProduct(data?.products);
     } catch (error) {
       console.log(error);
@@ -112,6 +114,7 @@ const Home = () => {
             <div className="text-center">
               <h2>All product</h2>
             </div>
+            {JSON.stringify(checked)}
             <div className="d-flex flex-wrap">
               {products?.map((p) => (
                 <div key={p._id}>
@@ -125,6 +128,8 @@ const Home = () => {
                       <h5 className="card-title">{p.name}</h5>
                       <p className="card-text">{p.description}</p>
                       <p className="card-text">{p.price}</p>
+                      <p className="card-text">{p.category.name}</p>
+
                     </div>
                   </div>
                 </div>
