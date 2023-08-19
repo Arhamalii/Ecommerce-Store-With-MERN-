@@ -7,6 +7,7 @@ const {
   getProductPhotoController,
   deleteProductController,
   updateProductController,
+  productFilterController,
   searchProductController,
   relatedProductController,
   categoryWiseProductController,
@@ -59,6 +60,12 @@ router.get("/product-photo/:pid", getProductPhotoController);
 // @desc delete product
 
 router.delete("/product/:id", deleteProductController);
+
+// @method Filter
+// @acess public
+// @desc Filter product
+
+router.post("/product-filters", productFilterController);
 
 // search product
 router.get("/search/:keyword", searchProductController);

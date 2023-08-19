@@ -27,13 +27,14 @@ const Products = () => {
 
   return (
     <Layout title={"Products"}>
-      <div className="row" style={{minHeight:"85vh"}}>
+      <div className="row" style={{ minHeight: "85vh" }}>
         <div className="col-md-3">
           <Adminmenu />
         </div>
         <div className="col-md-9">
           <h1 className="text-center"> All Products List</h1>
-          <div className="d-flex flex-wrap">
+
+          <div className="d-flex flex-wrap ">
             {products?.map((p) => (
               <Link
                 key={p._id}
@@ -41,7 +42,7 @@ const Products = () => {
                 className="text-dark"
                 style={{ textDecoration: "none" }}
               >
-                <div className="card m-2" style={{ width: "18rem" }}>
+                <div className="card m-2 " style={{ width: "18rem" }}>
                   <img
                     src={`/api/v1/products/product-photo/${p._id} `}
                     className="card-img-top"
