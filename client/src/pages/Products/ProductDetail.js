@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
 import Layout from "../../Component/Layout";
 import { useCart } from "../../context/Cart";
-import toast from "react-hot-toast"
 const ProductDetail = () => {
   const params = useParams();
   const [product, setProduct] = useState({});
@@ -64,7 +64,19 @@ const ProductDetail = () => {
               <h6>Description : {product?.description}</h6>
               <h6>Price: {product?.price}</h6>
               <h6>Category: {product?.category?.name}</h6>
-              <button className="btn btn-secondary ms-1" >Add to Cart</button>
+              <button
+                className="btn btn-secondary ms-1"
+                onClick={() => {
+                  setCart([...cart, product]);
+                  localStorage.setItem(
+                    "cart",
+                    JSON.stringify([...cart, product])
+                  );
+                  toast.success("Item added TO Cart");
+                }}
+              >
+                Add to Cart
+              </button>
             </>
           )}
         </div>
@@ -90,9 +102,13 @@ const ProductDetail = () => {
                   <p className="card-text">{p.description}</p>
                   <button
                     className="btn btn-primary"
-                    onClick={() => {setCart([...cart, p])
-                    localStorage.setItem("cart",JSON.stringify([...cart,p]))
-                    toast.success("Item added TO Cart")
+                    onClick={() => {
+                      setCart([...cart, p]);
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, p])
+                      );
+                      toast.success("Item added TO Cart");
                     }}
                   >
                     Add to Cart

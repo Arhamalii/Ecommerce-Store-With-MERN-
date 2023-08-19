@@ -1,8 +1,11 @@
 import { Checkbox, Radio } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import Layout from "../../Component/Layout";
 import { prices } from "../../Component/Prices";
+import { useCart } from "../../context/Cart";
 import "./Home.css";
 
 const Home = () => {
@@ -10,7 +13,9 @@ const Home = () => {
   const [catageory, setCatageory] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
+  const [cart, setCart] = useCart();
 
+  const Navigate = useNavigate();
   // get all catagers items from backend
   const getAllCatagers = async () => {
     try {
@@ -24,8 +29,8 @@ const Home = () => {
   };
 
   useEffect(() => {
-    getAllCatagers();
     // eslint-disable-next-line
+    getAllCatagers();
   }, []);
 
   // get all product from backend
@@ -131,7 +136,25 @@ const Home = () => {
                       <h5 className="card-title">{p.name}</h5>
                       <p className="card-text">{p.description}</p>
                       <p className="card-text">{p.price}</p>
-                      <p className="card-text">{p.category.name}</p>
+                      <button
+                        className="btn btn-secondary ms-1"
+                        onClick={() => {
+                          setCart([...cart, p]);
+                          localStorage.setItem(
+                            "cart",
+                            JSON.stringify([...cart, p])
+                          );
+                          toast.success("Item added TO Cart");
+                        }}
+                      >
+                        Add to Cart
+                      </button>
+                      <button
+                        className="btn btn-primary mx-2"
+                        onClick={() => Navigate(`/product/${p.slug}`)}
+                      >
+                        More Details
+                      </button>
                     </div>
                   </div>
                 </div>
