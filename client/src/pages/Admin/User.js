@@ -5,7 +5,7 @@ import Adminmenu from "../../Component/Adminmenu";
 const User = () => {
   return (
     <Layout title={"All Users"}>
-      <div style={{ height: "85vh" }}>
+      <div style={{ minHeight: "105vh" }}>
       <div className="container-fluid ">
         <div className="row">
           <div className="col-md-3  p-3 m-3">

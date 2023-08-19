@@ -27,9 +27,9 @@ const Products = () => {
 
   return (
     <Layout title={"Products"}>
-      <div className="container-fluid">
 
-      <div className="row">
+      <div className="row" style={{minHeight:"85vh"}}>
+
         <div className="col-md-3">
           <Adminmenu />
         </div>
