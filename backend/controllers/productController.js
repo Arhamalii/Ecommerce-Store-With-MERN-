@@ -210,15 +210,26 @@ const updateProductController = async (req, res) => {
   }
 };
 
-
 const productFilterController = async (req, res) => {
   try {
     const { checked, radio } = req.body;
-
     let args = {};
     if (checked.length > 0) args.category = checked;
-    if (radio) args.price = { $gte: radio[0], $lte: radio[1] };
+    if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
     const products = await productModel.find(args);
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error whilte filter product",
+      error,
+    });
+  }
+};
 
 // search controller
 const searchProductController = async (req, res) => {
@@ -268,7 +279,6 @@ const relatedProductController = async (req, res) => {
   }
 };
 
-
 // category wise products
 
 const categoryWiseProductController = async (req, res) => {
@@ -301,5 +311,4 @@ module.exports = {
   searchProductController,
   relatedProductController,
   categoryWiseProductController,
-
 };

@@ -39,10 +39,6 @@ const Home = () => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log(products);
-  // });
-
   useEffect(() => {
     if (!checked.length || !radio.length) getAllProducts();
   }, [checked.length, radio.length]);
@@ -85,8 +81,8 @@ const Home = () => {
           <div className=" col-md-3">
             <div className="text">
               {/*                    filter by price                 */}
-              <h4>Filter By catageory</h4>
-              <div className="d-flex flex-column">
+              <h4 className="mx-3 mt-5">Filter By catageory</h4>
+              <div className="d-flex flex-column mx-3">
                 {catageory?.map((c) => (
                   <Checkbox
                     key={c._id}
@@ -97,8 +93,8 @@ const Home = () => {
                 ))}
               </div>
               {/*                     filter by price                 */}
-              <h4>Filter By price</h4>
-              <div className="d-flex flex-column">
+              <h4 className="mx-3 mt-3 ">Filter By price</h4>
+              <div className="d-flex flex-column mx-3">
                 <Radio.Group onChange={(e) => setRadio(e.target.value)}>
                   {prices?.map((p) => (
                     <div key={p.id}>
@@ -107,14 +103,21 @@ const Home = () => {
                   ))}
                 </Radio.Group>
               </div>
+              <div className="d-flex flex-column w-50  mt-4  mx-3">
+                <button
+                  className="btn btn-danger"
+                  onClick={() => window.location.reload()}
+                >
+                  Reset Filters
+                </button>
+              </div>
             </div>
           </div>
           <div className="col-md-9">
             {" "}
             <div className="text-center">
-              <h2>All product</h2>
+              <h2 className="my-4">Filter Products</h2>
             </div>
-            {JSON.stringify(checked)}
             <div className="d-flex flex-wrap">
               {products?.map((p) => (
                 <div key={p._id}>
@@ -129,7 +132,6 @@ const Home = () => {
                       <p className="card-text">{p.description}</p>
                       <p className="card-text">{p.price}</p>
                       <p className="card-text">{p.category.name}</p>
-
                     </div>
                   </div>
                 </div>

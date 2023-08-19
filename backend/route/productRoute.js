@@ -11,7 +11,6 @@ const {
   searchProductController,
   relatedProductController,
   categoryWiseProductController,
-
 } = require("../controllers/productController");
 const formidable = require("express-formidable");
 const router = express.Router();
@@ -62,16 +61,11 @@ router.get("/product-photo/:pid", getProductPhotoController);
 
 router.delete("/product/:id", deleteProductController);
 
-
-
-
-// @method Filter 
+// @method Filter
 // @acess public
 // @desc Filter product
 
-router.post("/product-filters",productFilterController);
-
-
+router.post("/product-filters", productFilterController);
 
 // search product
 router.get("/search/:keyword", searchProductController);
