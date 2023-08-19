@@ -108,7 +108,10 @@ const Login = () => {
         password,
       });
       if (res && res.data.success) {
-        toast.success(res.data && res.data.message);
+        setTimeout(() => {
+          toast.success(res.data && res.data.message);
+        }, 20);
+
         setAuth({
           ...auth,
           user: res.data.user,

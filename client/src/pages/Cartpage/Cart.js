@@ -1,8 +1,8 @@
 import React from "react";
-import Layout from "../../Component/Layout";
-import { useAuth } from "../../context/auth";
-import { useCart } from "../../context/Cart";
 import { useNavigate } from "react-router-dom";
+import Layout from "../../Component/Layout";
+import { useCart } from "../../context/Cart";
+import { useAuth } from "../../context/auth";
 
 const Cart = () => {
   const [auth] = useAuth();
@@ -13,9 +13,7 @@ const Cart = () => {
   const totalPrice = () => {
     try {
       let total = 0;
-      cart?.map((item) => (
-        total = total + item.price
-      ));
+      cart?.map((item) => (total = total + item.price));
       return total.toLocaleString("en-US", {
         style: "currency",
         currency: "USD",
@@ -47,7 +45,7 @@ const Cart = () => {
               {`hello ${auth?.token && auth?.user?.name}`}
             </h1>
             <h4 className="text-center">
-              {cart?.length > 1
+              {cart?.length > 0
                 ? `You Have ${cart.length} Item In Your Cart 
   ${auth?.token ? "" : "plase login to checkout"}`
                 : "your Cart is Empty"}
@@ -112,9 +110,11 @@ const Cart = () => {
                 ) : (
                   <button
                     className="btn btn-outline-warning"
-                    onClick={() => Navigate("/login",{
-                      state:"/cart",
-                    })}
+                    onClick={() =>
+                      Navigate("/login", {
+                        state: "/cart",
+                      })
+                    }
                   >
                     {" "}
                     please login to checkout

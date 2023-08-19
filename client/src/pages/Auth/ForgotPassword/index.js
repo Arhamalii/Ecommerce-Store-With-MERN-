@@ -29,7 +29,7 @@ const ForgotPassword = () => {
       if (res.data.success) {
         setTimeout(() => {
           toast.success(res.data.message);
-        }, 50);
+        }, 20);
         navigate("/login");
       } else {
         toast.error(res.data.message);

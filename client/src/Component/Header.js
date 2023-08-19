@@ -1,12 +1,12 @@
+import { Badge } from "antd";
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "../context/Cart";
 import { useAuth } from "../context/auth";
 import useCategory from "../hooks/useCategory";
 import SearchForm from "./form/SearchForm";
-import { useCart } from "../context/Cart";
-import { Badge } from "antd";
 
 const Header = () => {
   const Navigate = useNavigate();
@@ -63,7 +63,7 @@ const Header = () => {
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
                     <Link
-                      to={`/category/category`}
+                      to={`/categories`}
                       className="dropdown-item"
                       style={dropDownStyle}
                     >

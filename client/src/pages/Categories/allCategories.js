@@ -7,7 +7,12 @@ const AllCategories = () => {
   const categories = useCategory();
   return (
     <Layout title={"All Categories"}>
-      <h1>hi</h1>
+      <h2
+        className="text-center
+      "
+      >
+        All Categorires{" "}
+      </h2>
       <div className="container">
         <div className="row">
           {categories.map((c) => (

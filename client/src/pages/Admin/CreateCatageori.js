@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import Layout from "../../Component/Layout";
-import Adminmenu from "../../Component/Adminmenu";
-import axios from "axios";
-import { toast } from "react-hot-toast";
-import { Table } from "react-bootstrap";
 import { Modal } from "antd";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Table } from "react-bootstrap";
+import { toast } from "react-hot-toast";
+import Adminmenu from "../../Component/Adminmenu";
+import Layout from "../../Component/Layout";
 import Catageoryform from "../../Component/form/Catageoryform";
 
 const Catageroy = () => {
@@ -61,7 +61,9 @@ const Catageroy = () => {
         { name: updateName }
       );
       if (data.success) {
-        toast.success(`${updateName} is updated `);
+        setTimeout(() => {
+          toast.success(`${updateName} is updated `);
+        }, 20);
         setSlected(null);
         setUpdatedName("");
         setvisible(false);
@@ -83,7 +85,9 @@ const Catageroy = () => {
         `/api/v1/category/delete-category/${pid}`
       );
       if (data.success) {
-        toast.success(`catageory is delete `);
+        setTimeout(() => {
+          toast.success(`catageory is delete`);
+        }, 20);
         getAllCatagers();
       } else {
         toast.error(data.message);
@@ -119,31 +123,29 @@ const Catageroy = () => {
                 </thead>
                 <tbody>
                   {categeroy?.map((c) => (
-                    
-                      <tr className="fs-5" key={c._id}>
-                        <td >{c.name}</td>
-                        <td>
-                          <button
-                            className="btn btn-primary ms-2"
-                            onClick={() => {
-                              setvisible(true);
-                              setName(c.name);
-                              setSlected(c);
-                            }}
-                          >
-                            Edit
-                          </button>{" "}
-                          <button
-                            className="btn btn-danger  ms-2"
-                            onClick={() => {
-                              handleDelete(c._id);
-                            }}
-                          >
-                            Delete
-                          </button>{" "}
-                        </td>
-                      </tr>
-                   
+                    <tr className="fs-5" key={c._id}>
+                      <td>{c.name}</td>
+                      <td>
+                        <button
+                          className="btn btn-primary ms-2"
+                          onClick={() => {
+                            setvisible(true);
+                            setName(c.name);
+                            setSlected(c);
+                          }}
+                        >
+                          Edit
+                        </button>{" "}
+                        <button
+                          className="btn btn-danger  ms-2"
+                          onClick={() => {
+                            handleDelete(c._id);
+                          }}
+                        >
+                          Delete
+                        </button>{" "}
+                      </td>
+                    </tr>
                   ))}
                 </tbody>
               </Table>

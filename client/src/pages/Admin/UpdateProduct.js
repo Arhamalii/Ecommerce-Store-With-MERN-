@@ -99,7 +99,9 @@ const UpdateProduct = () => {
         productData
       );
       if (true) {
-        toast.success("Product Updated Successfully");
+        setTimeout(() => {
+          toast.success("Product Updated Successfully");
+        }, 20);
         Naviagte("/dashboard/admin/products");
       } else {
         toast.error(res.data.message);
@@ -115,7 +117,9 @@ const UpdateProduct = () => {
     try {
       const res = await axios.delete(`/api/v1/products/product/${input.id}`);
       if (res.data.success) {
-        toast.success("Product deleted Successfully");
+        setTimeout(() => {
+          toast.success("Product deleted Successfully");
+        }, 20);
         Naviagte("/dashboard/admin/products");
       }
     } catch (error) {
