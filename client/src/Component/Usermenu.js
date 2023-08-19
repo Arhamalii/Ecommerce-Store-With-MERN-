@@ -12,7 +12,7 @@ const Usermenu = () => {
             className="list-group-item list-group-item-action"
             style={{ color: "black" }}
           >
-            profile
+            update profile
           </Link>
           <Link
             to="/dashboard/user/orders"

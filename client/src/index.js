@@ -5,15 +5,19 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { AuthProvider } from "./context/auth";
 import { SearchPovider } from "./context/search";
+import { CartPovider } from "./context/Cart";
+
 import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthProvider>
     <SearchPovider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <CartPovider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </CartPovider>
     </SearchPovider>
   </AuthProvider>
 );
