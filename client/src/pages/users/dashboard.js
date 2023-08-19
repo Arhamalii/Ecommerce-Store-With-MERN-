@@ -28,6 +28,10 @@ const Dashboard = () => {
                 <h1 className="d-flex">Phone#:</h1>
                 <h3 className="m-auto"> {auth?.user?.phone}</h3>
               </div>
+              <div className="d-flex">
+                <h1 className="d-flex">Address:</h1>
+                <h3 className="m-auto"> {auth?.user?.address}</h3>
+              </div>
             </div>
           </div>
         </div>

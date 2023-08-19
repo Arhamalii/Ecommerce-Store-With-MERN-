@@ -5,10 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
 import useCategory from "../hooks/useCategory";
 import SearchForm from "./form/SearchForm";
+import { useCart } from "../context/Cart";
+import { Badge } from "antd";
 
 const Header = () => {
   const Navigate = useNavigate();
   const [auth, setAuth] = useAuth();
+  const [cart] = useCart();
   const categories = useCategory();
 
   const handleLogout = () => {
@@ -131,9 +134,12 @@ const Header = () => {
                 </>
               )}
 
-              <Link className="nav-link " to="/">
-                cart (<span>0</span>){" "}
-              </Link>
+              <Badge count={cart?.length} s>
+                <Link className="nav-link " to="/cart">
+                  cart{" "}
+                </Link>
+                {/* <Avatar shape="square" size="large" /> */}
+              </Badge>
             </Nav>
           </Navbar.Collapse>
         </Container>
