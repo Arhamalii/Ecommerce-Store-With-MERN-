@@ -89,6 +89,8 @@ const Register = () => {
               id="exampleInputEmail1"
               placeholder="Enter Your Phone "
               required
+              minLength={11}
+              maxLength={11}
             />
           </div>
 
@@ -100,6 +102,7 @@ const Register = () => {
               className="form-control"
               id="exampleInputPassword1"
               placeholder="Enter Your Password"
+              minLength={6}
               required
             />
           </div>

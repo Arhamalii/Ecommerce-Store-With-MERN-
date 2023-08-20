@@ -12,6 +12,7 @@ import User from "./pages/Admin/User";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import Login from "./pages/Auth/Login/login";
 import Register from "./pages/Auth/Register/Register";
+import Cart from "./pages/Cartpage/Cart";
 import AllCategories from "./pages/Categories/allCategories";
 import CategoryProduct from "./pages/Categories/categoryProduct";
 import Contact from "./pages/Contact/Contact";
@@ -23,7 +24,6 @@ import Search from "./pages/Products/Search";
 import Orders from "./pages/users/Orders";
 import Profile from "./pages/users/Profile";
 import Dashboard from "./pages/users/dashboard";
-import Cart from "./pages/Cartpage/Cart";
 
 const App = () => {
   return (
