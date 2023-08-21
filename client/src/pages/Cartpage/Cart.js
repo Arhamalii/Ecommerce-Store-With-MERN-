@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../../Component/Layout";
 import { useCart } from "../../context/Cart";
 import { useAuth } from "../../context/auth";
+import DropIn from "braintree-web-drop-in-react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const Cart = () => {
   const [auth] = useAuth();
   const [cart, setCart] = useCart();
+  const [clientToken, setClientToken] = useState("");
+  const [instance, setInstance] = useState("");
+  const [loading, setLoading] = useState(false);
   const Navigate = useNavigate();
 
   // cart price adding functionality
@@ -35,6 +41,40 @@ const Cart = () => {
       console.log(error);
     }
   };
+
+  // get payment get way token
+  const getToken = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/products/braintree/token");
+      setClientToken(data?.clientToken);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getToken();
+  }, [auth?.token]);
+
+  
+  // make payment button 
+const handelPayment  = async  ()=>{
+ try{
+  setLoading(true)
+  const {nonce} = await instance.requestPaymentMethod()
+  setLoading(false)
+localStorage.removeItem("cart")
+setCart([])
+Navigate("/dashboard/user/orders")
+toast.success("your order is placed successfully")
+const {data} =await axios.post("/api/v1/products/braintree/payment",{
+  nonce,cart
+})
+ }catch(error){
+  console.log(error)
+  setLoading(false)
+ }
+}
 
   return (
     <Layout>
@@ -80,7 +120,7 @@ const Cart = () => {
             ))}
           </div>
           <div className="col-md-4 text-center">
-            <h2> Cart Summaru</h2>
+            <h2> Cart Summary</h2>
             <p> Total || Payment || checkout </p>
             <hr />
             <h4> Total : {totalPrice()}</h4>
@@ -122,9 +162,33 @@ const Cart = () => {
                 )}
               </div>
             )}
-          </div>
+        <div className="mt-2">
+        {
+          !clientToken || !cart?.length ? (""):(
+            <>
+            <DropIn
+            options={{
+              authorization:clientToken,
+              paypal:{
+                flow:"checkout"
+              }
+            }}
+
+            onInstance={instance => setInstance(instance)}
+          />
+          <button className="btn btn-primary" onClick={handelPayment}
+          disabled={!instance || !auth?.user?.address}>
+          { loading ?  "Processing....":"Make Payment"}
+          </button>
+
+            </>
+          )
+        }
+         
+        </div>
         </div>
       </div>
+          </div>
     </Layout>
   );
 };

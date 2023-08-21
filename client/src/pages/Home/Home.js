@@ -135,6 +135,7 @@ const Home = () => {
                     <div className="card-body">
                       <h5 className="card-title">{p.name}</h5>
                       <p className="card-text">{p.description}</p>
+                      {/* <p className="card-text">{p.category.name}</p> */}
                       <p className="card-text">{p.price}</p>
                       <button
                         className="btn btn-secondary ms-1"
