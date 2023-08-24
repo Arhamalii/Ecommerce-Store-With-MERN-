@@ -3,6 +3,19 @@ const productModel = require("../models/productModel");
 const fs = require("fs");
 const slugify = require("slugify");
 const CategoryModel = require("../models/categoryModel");
+const braintree = require("braintree");
+const dotenve = require("dotenv");
+const orderModel = require("../models/orderModel.js")
+
+dotenve.config();
+
+//  PAYMENT GET WAY
+var gateway = new braintree.BraintreeGateway({
+  environment: braintree.Environment.Sandbox,
+  merchantId: process.env.BRAINTREE_MERCHANT_ID,
+  privateKey: process.env.BRAINTREE_PRIVATE_KEY,
+  publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+});
 
 const createProductController = async (req, res) => {
   try {
@@ -300,6 +313,59 @@ const categoryWiseProductController = async (req, res) => {
   }
 };
 
+
+// PAYMENT GEY WAY API/API
+// TOKEN
+const braintreeTokenController = async (req, res) => {
+  try {
+    gateway.clientToken.generate({}, function (err, response) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.send(response);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// PAYMENT
+const braintreePaymentController = async (req, res) => {
+  try {
+    const { cart, nonce } = req.body;
+    let total = 0;
+    cart.map((i) => {
+      total += i.price;
+    });
+
+    let newTransaction = gateway.transaction.sale(
+      {
+        amount: total,
+        paymentMethodNonce: nonce,
+        options: {
+          submitForSettlement: true,
+        },
+      },
+      function (error, result) {
+        if (result) {
+          const order = new orderModel({
+            products: cart,
+            payment: result,
+            buyer: req.user._id,
+          }).save();
+          res.json({ok:true})
+        }else{
+          res.status(500).send(error)
+        }
+      }
+    );
+  } catch (error) {
+    console.log( error);
+  }
+};
+
+
 const productCountController = async (req, res) => {
   try {
     const total = await productModel.find({}).estimatedDocumentCount();
@@ -340,6 +406,7 @@ const productListController = async (req, res) => {
     });
   }
 };
+
 module.exports = {
   createProductController,
   getProductController,
@@ -351,6 +418,9 @@ module.exports = {
   searchProductController,
   relatedProductController,
   categoryWiseProductController,
+  braintreeTokenController,
+  braintreePaymentController,
   productCountController,
   productListController,
+
 };

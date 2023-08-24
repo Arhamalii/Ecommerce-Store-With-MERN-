@@ -1,17 +1,28 @@
+import { Select } from "antd";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import Adminmenu from "../../Component/Adminmenu";
 import Layout from "../../Component/Layout";
-import Usermenu from "../../Component/Usermenu";
 import { useAuth } from "../../context/auth";
 
-const Orders = () => {
+const AdminOrder = () => {
+  const { Option } = Select;
+
+  const [status] = useState([
+    "Not Process",
+    "Processing",
+    "Shipped",
+    "Delivered",
+    "Cancel",
+  ]);
+  //   const [changeStatus, setChangeStatus] = useState("");
   const [orders, setOrders] = useState([]);
   const [auth] = useAuth();
 
   const getOrdersHandler = async () => {
     try {
-      const { data } = await axios.get("/api/v1/auth/orders");
+      const { data } = await axios.get("/api/v1/auth/all-orders");
       setOrders(data);
     } catch (error) {
       console.log(error);
@@ -22,18 +33,28 @@ const Orders = () => {
     if (auth?.token) getOrdersHandler();
   }, [auth?.token]);
 
+  const handleChange = async (orderId, value) => {
+    try {
+      axios.put(`/api/v1/auth/order-status/${orderId}`, {
+        status: value,
+      });
+      getOrdersHandler();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <Layout title={"Your Orders"}>
+    <Layout title={"All Orders"}>
       <div className="container-fluid ">
         <div className="row">
-          <div className="col-md-3 m-3 p-3">
-            <Usermenu />
+          <div className="col-md-3 px-4">
+            <Adminmenu />
           </div>
           <div className="col-md-8 mx-3 px-3">
-            <h1 className="text-center"> All orders</h1>
+            <h1 className="text-center">All Orders</h1>
             {orders.map((o, i) => {
               return (
-                <div className="border shadow">
+                <div className="border shadow" key={i}>
                   <table className="table">
                     <thead>
                       <tr>
@@ -48,7 +69,19 @@ const Orders = () => {
                     <tbody>
                       <tr>
                         <td>{i + 1}</td>
-                        <td>{o?.status}</td>
+                        <td>
+                          <Select
+                            bordered={false}
+                            onChange={(value) => handleChange(o._id, value)}
+                            defaultValue={o?.status}
+                          >
+                            {status?.map((s, i) => (
+                              <Option key={i} value={s}>
+                                {s}
+                              </Option>
+                            ))}
+                          </Select>
+                        </td>
                         <td>{o?.buyer?.name}</td>
                         <td>{moment(o?.createdAt).fromNow()}</td>
                         <td>{o?.payment?.success ? "Success" : "Failed"}</td>
@@ -86,4 +119,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default AdminOrder;

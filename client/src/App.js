@@ -4,6 +4,7 @@ import AdminRoute from "./Component/Routes/AdminRoute";
 import PrivateRoute from "./Component/Routes/Private";
 import About from "./pages/About/About";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminOrder from "./pages/Admin/AdminOrder";
 import Catageroy from "./pages/Admin/CreateCatageori";
 import CreateProduct from "./pages/Admin/CreateProduct";
 import Products from "./pages/Admin/Products";
@@ -57,6 +58,7 @@ const App = () => {
             element={<UpdateProduct />}
           />
           <Route path="admin/user" element={<User />} />
+          <Route path="admin/orders" element={<AdminOrder />} />
         </Route>
 
         <Route path="/login" element={<Login />} />

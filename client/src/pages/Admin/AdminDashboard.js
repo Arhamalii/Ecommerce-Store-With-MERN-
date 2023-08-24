@@ -1,13 +1,13 @@
 import React from "react";
-import Layout from "../../Component/Layout";
 import Adminmenu from "../../Component/Adminmenu";
+import Layout from "../../Component/Layout";
 import { useAuth } from "../../context/auth";
 
 const AdminDashboard = () => {
   const [auth] = useAuth();
   return (
-    <Layout title={"Admin Dashboard"} >
-      <div className="container-fluid" style={{height:"85vh"}}>
+    <Layout title={"Admin Dashboard"}>
+      <div className="container-fluid" style={{ height: "85vh" }}>
         <div className="row">
           <div className="col-md-3 p-3 m-3">
             {" "}

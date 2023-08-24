@@ -134,7 +134,8 @@ const Header = () => {
                 </>
               )}
 
-              <Badge count={cart?.length} style={{ color: "#fff" }}>
+              <Badge count={cart?.length}>
+
                 <Link className="nav-link " to="/cart">
                   cart
                 </Link>
