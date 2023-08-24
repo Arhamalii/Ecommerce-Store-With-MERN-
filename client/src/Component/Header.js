@@ -134,11 +134,10 @@ const Header = () => {
                 </>
               )}
 
-              <Badge count={cart?.length} s>
+              <Badge count={cart?.length}>
                 <Link className="nav-link " to="/cart">
                   cart{" "}
                 </Link>
-                {/* <Avatar shape="square" size="large" /> */}
               </Badge>
             </Nav>
           </Navbar.Collapse>

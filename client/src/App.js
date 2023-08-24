@@ -4,6 +4,7 @@ import AdminRoute from "./Component/Routes/AdminRoute";
 import PrivateRoute from "./Component/Routes/Private";
 import About from "./pages/About/About";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminOrder from "./pages/Admin/AdminOrder";
 import Catageroy from "./pages/Admin/CreateCatageori";
 import CreateProduct from "./pages/Admin/CreateProduct";
 import Products from "./pages/Admin/Products";
@@ -12,6 +13,7 @@ import User from "./pages/Admin/User";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import Login from "./pages/Auth/Login/login";
 import Register from "./pages/Auth/Register/Register";
+import Cart from "./pages/Cartpage/Cart";
 import AllCategories from "./pages/Categories/allCategories";
 import CategoryProduct from "./pages/Categories/categoryProduct";
 import Contact from "./pages/Contact/Contact";
@@ -23,7 +25,6 @@ import Search from "./pages/Products/Search";
 import Orders from "./pages/users/Orders";
 import Profile from "./pages/users/Profile";
 import Dashboard from "./pages/users/dashboard";
-import Cart from "./pages/Cartpage/Cart";
 
 const App = () => {
   return (
@@ -57,6 +58,7 @@ const App = () => {
             element={<UpdateProduct />}
           />
           <Route path="admin/user" element={<User />} />
+          <Route path="admin/orders" element={<AdminOrder />} />
         </Route>
 
         <Route path="/login" element={<Login />} />
