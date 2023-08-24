@@ -14,8 +14,21 @@ const Home = () => {
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
   const [cart, setCart] = useCart();
-
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [button, setButton] = useState(true);
   const Navigate = useNavigate();
+
+  const getTotal = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/products/product-count");
+      setTotal(data?.total);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // get all catagers items from backend
   const getAllCatagers = async () => {
     try {
@@ -29,27 +42,54 @@ const Home = () => {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line
     getAllCatagers();
+    getTotal();
   }, []);
+
+  const loadMore = async () => {
+    try {
+      setButton(true);
+      setLoading(true);
+      const { data } = await axios.get(`/api/v1/products/product-list/${page}`);
+      setLoading(false);
+      setProduct([...products, ...data?.products]);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (page === 1) return;
+    loadMore();
+    // eslint-disable-next-line
+  }, [page]);
 
   // get all product from backend
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get("/api/v1/products/get-product");
-      setProduct(data.allProducts);
-      console.log(data?.allProducts);
+      setButton(true);
+      setLoading(true);
+      const { data } = await axios.get(`/api/v1/products/product-list/1`);
+      setLoading(false);
+      setProduct(data?.products);
+      setPage(1);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     if (!checked.length || !radio.length) getAllProducts();
+    // eslint-disable-next-line
   }, [checked.length, radio.length]);
 
   useEffect(() => {
-    if (checked.length || radio.length) filterProduct();
+    if (checked.length || radio.length) {
+      setProduct(null);
+      filterProduct();
+    }
     // eslint-disable-next-line
   }, [checked, radio]);
 
@@ -72,6 +112,7 @@ const Home = () => {
         checked,
         radio,
       });
+      setButton(false);
       console.log(data?.products);
       setProduct(data?.products);
     } catch (error) {
@@ -119,7 +160,6 @@ const Home = () => {
             </div>
           </div>
           <div className="col-md-9">
-            {" "}
             <div className="text-center">
               <h2 className="my-4">Filter Products</h2>
             </div>
@@ -159,6 +199,19 @@ const Home = () => {
                   </div>
                 </div>
               ))}
+            </div>
+            <div className="m-2 p-3">
+              {button && products && products.length < total && (
+                <button
+                  className="btn btn-danger"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setPage((prev) => prev + 1);
+                  }}
+                >
+                  {loading ? "Loading ......" : "Loadmore"}
+                </button>
+              )}
             </div>
           </div>
         </div>

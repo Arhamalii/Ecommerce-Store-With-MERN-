@@ -5,39 +5,24 @@ import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import Adminmenu from "../../Component/Adminmenu";
 import Layout from "../../Component/Layout";
+import useCategory from "../../hooks/useCategory";
 const { Option } = Select;
 
 const UpdateProduct = () => {
   const Naviagte = useNavigate();
   const params = useParams();
+  const categories = useCategory();
 
   const [input, setInput] = useState({
     name: "",
     price: "",
     description: "",
-    categories: [],
     category: "",
     id: "",
     quantity: "",
     shipping: "",
     photo: null,
-    oldPhoto: null,
   });
-
-  const getAllCategory = async () => {
-    try {
-      const { data } = await axios.get("/api/v1/category/category");
-      if (data?.success) {
-        setInput({ ...input, categories: data?.allCategories });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    getAllCategory();
-    //eslint-disable-next-line
-  }, []);
 
   // for fetching single product
   const getSingleProduct = async () => {
@@ -60,21 +45,35 @@ const UpdateProduct = () => {
       console.log(error);
     }
   };
+  // ---------- for fetching old image--------------------
 
-  const getPhotoHandler = async () => {
-    if (input.id) {
-      const res = await axios.get(
-        `/api/v1/products/product-photo/${input?.id} `
-      );
-      setInput({ ...input, oldPhoto: res.data });
-      console.log("photoSetted", res);
+  const fetchImage = async () => {
+    try {
+      if (input.id) {
+        const response = await axios.get(
+          `/api/v1/products/product-photo/${input?.id}`,
+          {
+            responseType: "blob", // Receive the image as a Blob
+          }
+        );
+
+        // Convert the Blob to a data URL using FileReader
+        const reader = new FileReader();
+        reader.onload = () => {
+          setInput({ ...input, photo: reader.result });
+        };
+        reader.readAsDataURL(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching image:", error);
     }
   };
+
   // get product initial one time
   useEffect(() => {
+    fetchImage();
     getSingleProduct();
-    getPhotoHandler();
-
+    // getPhotoHandler();
     //eslint-disable-next-line
   }, []);
 
@@ -93,18 +92,21 @@ const UpdateProduct = () => {
       productData.append("price", input.price);
       productData.append("quantity", input.quantity);
       productData.append("description", input.description);
-      input.photo && productData.append("photo", input.photo);
+      if (input.photo) {
+        productData.append("photo", input.photo);
+      }
       const res = await axios.put(
         `/api/v1/products/update-product/${input.id}`,
         productData
       );
+      console.log(res.data.sucess);
       if (true) {
         setTimeout(() => {
           toast.success("Product Updated Successfully");
         }, 20);
         Naviagte("/dashboard/admin/products");
       } else {
-        toast.error(res.data.message);
+        toast.error("masla");
       }
     } catch (error) {
       console.log(error);
@@ -147,15 +149,16 @@ const UpdateProduct = () => {
                   showSearch
                   className="form-select mb-3"
                   onChange={(value) => {
-                    setInput({ ...input, category: value });
+                    const cop = categories.filter((c) => c.name === value);
+                    setInput({ ...input, category: cop[0] });
                   }}
                   value={
-                    input?.category?.name
+                    input?.category
                       ? input?.category?.name
-                      : input?.category
+                      : "Loading ........."
                   }
                 >
-                  {input?.categories.map((c) => (
+                  {categories.map((c) => (
                     <Option
                       key={c?._id}
                       value={c.name}
@@ -167,7 +170,7 @@ const UpdateProduct = () => {
                 </Select>
                 <div className="mb-3">
                   <label className="btn btn-outline-secondary col-md-12">
-                    {input.photo ? input.photo.name : "Upload Photo"}
+                    {input.photo ? input.photo.name : "Upload New Photo"}
                     <input
                       type="file"
                       name="photo"
@@ -190,15 +193,9 @@ const UpdateProduct = () => {
                       />
                     </div>
                   ) : (
-                    <div className="text-center ">
+                    <div className="text-center">
                       <img
-                        // src={
-                        //   input.id
-                        //     ? `/api/v1/products/product-photo/${input.id} `
-                        //     : ""
-                        // }
-
-                        src={input.oldPhoto}
+                        src={`/api/v1/products/product-photo/${input.id} `}
                         alt="Product"
                         style={{ maxWidth: "100%", height: "200px" }}
                         className="img img-responsive"
