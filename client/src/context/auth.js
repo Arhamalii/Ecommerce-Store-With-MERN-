@@ -9,7 +9,6 @@ const AuthProvider = ({ children }) => {
     token: "",
   });
   axios.defaults.headers.common["Authorization"] = auth?.token;
-  console.log(auth.token);
   useEffect(() => {
     const data = localStorage.getItem("auth");
     if (data) {

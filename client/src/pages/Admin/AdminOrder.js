@@ -1,5 +1,4 @@
 import { Select } from "antd";
-import { Option } from "antd/es/mentions";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -8,6 +7,8 @@ import Layout from "../../Component/Layout";
 import { useAuth } from "../../context/auth";
 
 const AdminOrder = () => {
+  const { Option } = Select;
+
   const [status] = useState([
     "Not Process",
     "Processing",
@@ -74,7 +75,7 @@ const AdminOrder = () => {
                             onChange={(value) => handleChange(o._id, value)}
                             defaultValue={o?.status}
                           >
-                            {status.map((s, i) => (
+                            {status?.map((s, i) => (
                               <Option key={i} value={s}>
                                 {s}
                               </Option>
