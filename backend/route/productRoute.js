@@ -13,6 +13,8 @@ const {
   braintreeTokenController,
   braintreePaymentController,
   categoryWiseProductController,
+  productCountController,
+  productListController,
 } = require("../controllers/productController");
 const formidable = require("express-formidable");
 const router = express.Router();
@@ -78,11 +80,19 @@ router.get("/related-product/:pid/:cid", relatedProductController);
 // category wise product
 router.get("/product-category/:slug", categoryWiseProductController);
 
+
 // PAYMENT ROUTES
 // TOKEN
 router.get("/braintree/token", braintreeTokenController);
 
 // PAYMENT ROUTES
 router.post("/braintree/payment", requireSignIn, braintreePaymentController);
+
+// product count  controller
+router.get("/product-count", productCountController);
+
+// product list controller
+router.get("/product-list/:page", productListController);
+
 
 module.exports = router;

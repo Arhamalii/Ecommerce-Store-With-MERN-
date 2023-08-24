@@ -135,8 +135,9 @@ const Header = () => {
               )}
 
               <Badge count={cart?.length}>
+
                 <Link className="nav-link " to="/cart">
-                  cart{" "}
+                  cart
                 </Link>
               </Badge>
             </Nav>

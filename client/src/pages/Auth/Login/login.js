@@ -153,6 +153,7 @@ const Login = () => {
               id="exampleInputPassword1"
               placeholder="Enter Your Password"
               required
+              minLength={6}
             />
           </div>
           <div className="mb-3">
