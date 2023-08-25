@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Layout from "../../../Component/Layout";
-import "./style.css";
+import "../Register/Register.css";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();

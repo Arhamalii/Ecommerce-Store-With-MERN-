@@ -79,7 +79,7 @@ const Cart = () => {
   };
 
   return (
-    <Layout>
+    <Layout title={"Cart"}>
       <div className="container" style={{ minHeight: "85vh" }}>
         <div className="row">
           <div className="col-md-12">

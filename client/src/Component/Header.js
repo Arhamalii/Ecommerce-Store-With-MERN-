@@ -226,9 +226,7 @@ const Header = () => {
               <li id="lg-bag">
                 <Link
                   to="/cart"
-                  className={
-                    location.pathname === "/addto-cart" ? "active" : ""
-                  }
+                  className={location.pathname === "/cart" ? "active" : ""}
                 >
                   <i className="fa fa-thin fa-cart-shopping" />
                 </Link>
