@@ -190,12 +190,14 @@ const Home = () => {
                       >
                         Add to Cart
                       </button>
+                      {/* ---------- */}
                       <button
                         className="btn btn-primary mx-2"
                         onClick={() => Navigate(`/product/${p.slug}`)}
                       >
                         More Details
                       </button>
+                      {/* ---------- */}
                     </div>
                   </div>
                 </div>

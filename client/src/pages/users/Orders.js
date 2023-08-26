@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../Component/Layout";
 import Usermenu from "../../Component/Usermenu";
 import { useAuth } from "../../context/auth";
+import "./order.css";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -24,7 +25,7 @@ const Orders = () => {
 
   return (
     <Layout title={"Your Orders"}>
-      <div className="container-fluid ">
+      <div className="container-fluid mt-4 ">
         <div className="row">
           <div className="col-md-3 m-3 p-3">
             <Usermenu />

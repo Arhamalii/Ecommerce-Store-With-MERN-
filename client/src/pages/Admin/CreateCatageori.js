@@ -106,7 +106,7 @@ const Catageroy = () => {
               <Adminmenu />
             </div>
             <div className="col-md-6  p-3">
-              <h1> manage Catageroy</h1>
+              <h1 className="mt-2"> Manage Categories</h1>
               <div className="p-3 w-40">
                 <Catageoryform
                   handleSubmit={handleSubmit}
