@@ -5,9 +5,11 @@
   height: 100vh;
   max-width: 100vw;
   flex-flow: column;
+  background: #e3e6f3;
 }
 .custom-container h3 {
   margin-bottom: 2rem;
+  color: #333;
 }
 
 .custom-container .loader {

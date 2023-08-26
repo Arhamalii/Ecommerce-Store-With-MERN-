@@ -6,6 +6,7 @@ import Adminmenu from "../../Component/Adminmenu";
 import Layout from "../../Component/Layout";
 import { useAuth } from "../../context/auth";
 
+import "../users/order.css";
 const AdminOrder = () => {
   const { Option } = Select;
 
@@ -45,13 +46,13 @@ const AdminOrder = () => {
   };
   return (
     <Layout title={"All Orders"}>
-      <div className="container-fluid ">
+      <div className="container-fluid mt-5">
         <div className="row">
           <div className="col-md-3 px-4">
             <Adminmenu />
           </div>
           <div className="col-md-8 mx-3 px-3">
-            <h1 className="text-center">All Orders</h1>
+            <h1 className="text-center ">All Orders</h1>
             {orders.map((o, i) => {
               return (
                 <div className="border shadow" key={i}>
