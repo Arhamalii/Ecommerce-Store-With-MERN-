@@ -36,14 +36,6 @@ const Adminmenu = () => {
           >
             Orders
           </Link>
-
-          <Link
-            to="/dashboard/admin/user"
-            className="list-group-item list-group-item-action"
-            style={{ color: "black" }}
-          >
-            Users
-          </Link>
         </div>
       </div>
     </>

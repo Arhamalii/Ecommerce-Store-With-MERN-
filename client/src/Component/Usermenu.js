@@ -4,22 +4,22 @@ import { Link } from "react-router-dom";
 const Usermenu = () => {
   return (
     <>
-      <div className="text-center" >
+      <div className="text-center">
         <div className="list-group">
-          <h4>User Pannel</h4>
+          <h4 style={{ fontSize: "1.4rem", color: "#333" }}>User Pannel</h4>
           <Link
             to="/dashboard/user/profile"
-            className="list-group-item list-group-item-action"
-            style={{ color: "black" }}
+            className="list-group-item list-group-item-action "
+            style={{ color: "black", padding: "1rem" }}
           >
-            update profile
+            Update Profile
           </Link>
           <Link
             to="/dashboard/user/orders"
             className="list-group-item list-group-item-action"
-            style={{ color: "black" }}
+            style={{ color: "black", padding: "1rem" }}
           >
-            orders
+            Your Orders
           </Link>
         </div>
       </div>

@@ -1,18 +1,13 @@
-import { Checkbox, Radio, ShoppingCartOutlined } from "@ant-design/icons";
+import { Checkbox, Radio } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Layout from "../../Component/Layout";
 import { prices } from "../../Component/Prices";
 import { useCart } from "../../context/Cart";
-import Hero from "../../Component/Hero/Hero";
-import Feature from "../../Component/Feature/Feature";
-import Banner1 from "../../Component/Banner1/Banner1";
-import BnrQform from "../../Component/BannerQeryform/bnrQform";
-import "./Home.css";
-
-const Home = () => {
+import "./style.css";
+const ShopPage = () => {
   const [products, setProduct] = useState([]);
   const [catageory, setCatageory] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -123,101 +118,120 @@ const Home = () => {
       console.log(error);
     }
   };
-  // FUNCTION FOR DISPLAY ONLY 4 PRODUCT
-  const limitedProduct = products.slice(0, 4);
-  const newArrival = products.slice(4, 8);
 
   return (
-    <Layout title={"Home E-Commerce"}>
+    <Layout title={"All-Products"}>
+      <section id="products-header">
+        <h2>#stayhome</h2>
+        <p>Save More with Coupons & upto 70% off</p>
+      </section>
+      <h2 style={{ marginTop: "4rem", textAlign: "center" }}>All Products</h2>
+      <section id="product1_new" className="section-p1">
+        <div className="filters ">
+          <h2
+            style={{ marginTop: "2.5rem", textAlign: "center" }}
+            className="filterHeading"
+          >
+            Filters
+          </h2>
+          <div className=" mt-5 p-5">
+            {/*                    filter by price                 */}
+            <h4 className="mt-5" style={{ color: "#088178", fontWeight: 600 }}>
+              Filter By catageory
+            </h4>
+            <div className="d-flex flex-column ">
+              {catageory?.map((c) => (
+                <Checkbox
+                  key={c._id}
+                  onChange={(e) => handlerFilter(e.target.checked, c._id)}
+                  style={{
+                    color: "#858992",
+                    fontWeight: 600,
+                    marginBottom: ".2rem",
+                    fontSize: "1rem",
+                  }}
+                >
+                  {c.name}
+                </Checkbox>
+              ))}
+            </div>
 
-      <Hero />
-      <Feature />
-
-      <section id="product1" className="section-p1">
-        <h2>Feature Product</h2>
-        <p>Summer Collection New Arival Desigin</p>
-        <div className="proContainer">
-          {limitedProduct.map((p) => (
-            <Link to={`/product/${p.slug}`}>
-              <div key={p._id} className="pro">
+            <h4 className=" mt-5" style={{ color: "#088178", fontWeight: 600 }}>
+              Filter By price
+            </h4>
+            <div className="d-flex flex-column ">
+              <Radio.Group onChange={(e) => setRadio(e.target.value)}>
+                {prices?.map((p) => (
+                  <div key={p.id} style={{ width: "max-content" }}>
+                    <Radio
+                      value={p.array}
+                      style={{ color: "#858992", fontWeight: 600 }}
+                    >
+                      {p.name}
+                    </Radio>
+                  </div>
+                ))}
+              </Radio.Group>
+            </div>
+            <div className="d-flex flex-column ">
+              <button
+                className="reset_filters"
+                onClick={() => window.location.reload()}
+              >
+                Reset Filters
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="proContainer_new ">
+          {products?.map((p) => (
+            <Link to={`/product/${p.slug}`} style={{ width: "min-content" }}>
+              <div className="pro" key={p._id}>
                 <img
                   src={`/api/v1/products/product-photo/${p._id}`}
                   alt={p.name}
                 />
-
                 <div className="des">
                   <h5>{p.name}</h5>
-                  <span>{p.description}</span>
                   <div className="start">
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-
+                    <i className="fas fa-star" />
+                    <i className="fas fa-star" />
+                    <i className="fas fa-star" />
+                    <i className="fas fa-star" />
+                    <i className="fas fa-star" />
                   </div>
-                  <h4>${p.price}</h4>
+                  <h4>$ {p.price}</h4>
                 </div>
-                <Link to="/">
-                  <ShoppingCartOutlined
-                    className="fa"
-                    onClick={() => {
-                      setCart([...cart, p]);
-                      localStorage.setItem(
-                        "cart",
-                        JSON.stringify([...cart, p])
-                      );
-                      toast.success("Item added TO Cart");
-                    }}
-                  />
-                </Link>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-      <Banner1 />
-      {/* NEW ARRIVAL  */}
-      <section id="product1" className="section-p1">
-        <h2>New Arival</h2>
-        <p>Summer Collection New Arival Desigin</p>
-        <div className="proContainer">
-          {newArrival.map((p) => (
-            <div key={p._id} className="pro">
-              <img
-                src={`/api/v1/products/product-photo/${p._id}`}
-                alt={p.name}
-              />
-
-              <div className="des">
-                <h5>{p.name}</h5>
-                <span>{p.description}</span>
-                <div className="start">
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                </div>
-                <h4>${p.price}</h4>
-              </div>
-              <Link to="/product/:slug">
-                <ShoppingCartOutlined
-                  className="fa"
+                <Link
                   onClick={() => {
                     setCart([...cart, p]);
                     localStorage.setItem("cart", JSON.stringify([...cart, p]));
                     toast.success("Item added TO Cart");
                   }}
-                />
-              </Link>
-            </div>
+                >
+                  <i className="fa fal fa-shopping-cart" />
+                </Link>
+              </div>
+            </Link>
           ))}
+          <div className="mx-auto">
+            {button && products && products.length < total && (
+              <button
+                className="pagination_btn "
+                onClick={(e) => {
+                  e.preventDefault();
+                  setPage((prev) => prev + 1);
+                }}
+              >
+                {loading ? "Loading ......" : "LoadMore"}
+              </button>
+            )}
+          </div>
         </div>
       </section>
-      <BnrQform />
+      <section id="pagination"></section>
     </Layout>
   );
 };
 
-export default Home;
+export default ShopPage;

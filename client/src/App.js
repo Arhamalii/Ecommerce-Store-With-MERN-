@@ -9,12 +9,10 @@ import Catageroy from "./pages/Admin/CreateCatageori";
 import CreateProduct from "./pages/Admin/CreateProduct";
 import Products from "./pages/Admin/Products";
 import UpdateProduct from "./pages/Admin/UpdateProduct";
-import User from "./pages/Admin/User";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import Login from "./pages/Auth/Login/login";
 import Register from "./pages/Auth/Register/Register";
 import Cart from "./pages/Cartpage/Cart";
-import AllCategories from "./pages/Categories/allCategories";
 import CategoryProduct from "./pages/Categories/categoryProduct";
 import Contact from "./pages/Contact/Contact";
 import Home from "./pages/Home/Home";
@@ -22,6 +20,7 @@ import Pagenotfound from "./pages/PageNotFound/Pagenotfound";
 import Policy from "./pages/Policy/Policy";
 import ProductDetail from "./pages/Products/ProductDetail";
 import Search from "./pages/Products/Search";
+import ShopPage from "./pages/Shopage";
 import Orders from "./pages/users/Orders";
 import Profile from "./pages/users/Profile";
 import Dashboard from "./pages/users/dashboard";
@@ -31,9 +30,9 @@ const App = () => {
     <>
       <Routes>
         <Route path="/home" element={<Home />} />
+        <Route path="/all-products" element={<ShopPage />} />
         <Route path="/search" element={<Search />} />
         <Route path="/product/:slug" element={<ProductDetail />} />
-        <Route path="/categories" element={<AllCategories />} />
         <Route path="/category/:slug" element={<CategoryProduct />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
@@ -57,7 +56,6 @@ const App = () => {
             path="admin/update-product/:slug"
             element={<UpdateProduct />}
           />
-          <Route path="admin/user" element={<User />} />
           <Route path="admin/orders" element={<AdminOrder />} />
         </Route>
 

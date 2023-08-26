@@ -2,10 +2,11 @@ import axios from "axios";
 import DropIn from "braintree-web-drop-in-react";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Layout from "../../Component/Layout";
 import { useCart } from "../../context/Cart";
 import { useAuth } from "../../context/auth";
+import "./style.css";
 
 const Cart = () => {
   const [auth] = useAuth();
@@ -79,117 +80,130 @@ const Cart = () => {
   };
 
   return (
-    <Layout title={"Cart"}>
-      <div className="container" style={{ minHeight: "85vh" }}>
-        <div className="row">
-          <div className="col-md-12">
-            <h1 className="text-center bg-light p-2">
-              {`hello ${auth?.token && auth?.user?.name}`}
-            </h1>
-            <h4 className="text-center">
-              {cart?.length > 0
-                ? `You Have ${cart.length} Item In Your Cart 
-  ${auth?.token ? "" : "plase login to checkout"}`
-                : "your Cart is Empty"}
-            </h4>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-8">
-            {cart.map((p) => (
-              <div className="row mb-3 card flex-row" key={p._id}>
-                <div className="col-md-4">
-                  <img
-                    src={`/api/v1/products/product-photo/${p._id}`}
-                    className="card-img-top"
-                    alt={p.name}
-                    height={"190xp"}
-                    width={"70px"}
-                  />
-                </div>
-                <div className="col-md-8 p-3">
-                  <p> {p.name}</p>
-                  <p> {p.description.substring(0, 30)}</p>
-                  <p> Price: {p.price}</p>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => removeCartItem(p._id)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="col-md-4 text-center">
-            <h2> Cart Summary</h2>
-            <p> Total || Payment || checkout </p>
-            <hr />
-            <h4> Total : {totalPrice()}</h4>
-            {auth?.user?.address ? (
-              <>
-                <div className="mb-3">
-                  <h4> Current Address</h4>
-                  <h5> {auth?.user?.address}</h5>
-                  <button
-                    onClick={() => Navigate("/dashboard/user/profile")}
-                    className="btn btn-outline-warning"
-                  >
-                    {" "}
-                    update address
-                  </button>
-                </div>
-              </>
-            ) : (
-              <div className="mb-3">
-                {auth?.token ? (
+    <Layout>
+      <div>
+        <section id="cart" className="section-p1">
+          <h4 className="text-center mb-4">
+            {cart?.length > 0
+              ? `You Have ${cart.length} Item In Your Cart
+    ${auth?.token ? "" : "plase login to checkout"}`
+              : "Your Cart is Empty"}
+          </h4>
+          <table width="100%">
+            <thead>
+              <tr>
+                <td>Remove</td>
+                <td>Image</td>
+                <td>Product</td>
+                <td>Price</td>
+                <td>Category</td>
+                <td>Shipping</td>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map((p, i) => (
+                <tr key={i}>
+                  <td>
+                    <Link onClick={() => removeCartItem(p._id)}>
+                      <i className="far fa-times-circle" id="cross_icon" />
+                    </Link>
+                  </td>
+                  <td>
+                    <img
+                      src={`/api/v1/products/product-photo/${p._id}`}
+                      alt={p.name}
+                    />
+                  </td>
+                  <td>{p.name}</td>
+                  <td>${p.price}</td>
+                  <td>Mens Wear</td>
+                  <td>Free</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+        <section id="cart-add" className="section-p1">
+          <div id="subtotal">
+            <h3>Cart Summary</h3>
+            <div className="d-flex flex-row my-4">
+              {auth?.user?.address ? (
+                <>
+                  <h4> Current Address : &nbsp;</h4>
+                  <h5> {auth?.user?.address}&nbsp;&nbsp;</h5>
                   <button
                     onClick={() => Navigate("/dashboard/user/profile")}
-                    className="btn btn-outline-warning"
+                    id="address_btn"
                   >
                     Update Address
                   </button>
-                ) : (
-                  <button
-                    className="btn btn-outline-warning"
-                    onClick={() =>
-                      Navigate("/login", {
-                        state: "/cart",
-                      })
-                    }
-                  >
-                    {" "}
-                    please login to checkout
-                  </button>
-                )}
-              </div>
-            )}
-            <div className="mt-2">
-              {!clientToken || !cart?.length ? (
-                ""
+                </>
               ) : (
                 <>
-                  <DropIn
-                    options={{
-                      authorization: clientToken,
-                      paypal: {
-                        flow: "checkout",
-                      },
-                    }}
-                    onInstance={(instance) => setInstance(instance)}
-                  />
-                  <button
-                    className="btn btn-primary"
-                    onClick={handelPayment}
-                    disabled={!instance || !auth?.user?.address}
-                  >
-                    {loading ? "Processing...." : "Make Payment"}
-                  </button>
+                  {auth?.token ? (
+                    <button onClick={() => Navigate("/dashboard/user/profile")}>
+                      Update Address
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        Navigate("/login", {
+                          state: "/cart",
+                        })
+                      }
+                      id="p_login_btn"
+                    >
+                      Please Login to Checkout &nbsp;&#8594;
+                    </button>
+                  )}
                 </>
               )}
             </div>
+            <table className="w-50">
+              <tbody>
+                <tr>
+                  <td>Products Price</td>
+                  <td>{totalPrice()}</td>
+                </tr>
+                <tr>
+                  <td>Shipping</td>
+                  <td> Free</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Total Amount :</strong>
+                  </td>
+                  <td>
+                    <strong> {totalPrice()} </strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </div>
+
+          {!clientToken || !cart?.length ? (
+            ""
+          ) : (
+            <div className="payment_container ">
+              <DropIn
+                options={{
+                  authorization: clientToken,
+                  paypal: {
+                    flow: "checkout",
+                  },
+                }}
+                onInstance={(instance) => setInstance(instance)}
+              />
+              <button
+                id="paynow_btn"
+                onClick={handelPayment}
+                disabled={!instance || !auth?.user?.address}
+              >
+                {loading ? "Processing...." : "Pay Now"}&nbsp;&nbsp; &#8594;
+              </button>
+            </div>
+          )}
+        </section>
       </div>
     </Layout>
   );

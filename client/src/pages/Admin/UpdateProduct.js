@@ -254,10 +254,18 @@ const UpdateProduct = () => {
                     <Option value={1}>Yes</Option>
                   </Select>
                   <div className="mb-3">
-                    <button className="btn btn-primary" onClick={handleCreate}>
+                    <button
+                      className="btn btn-primary"
+                      onClick={handleCreate}
+                      style={{ marginRight: "1rem", marginTop: "1rem" }}
+                    >
                       Update Product
                     </button>
-                    <button className="btn btn-danger" onClick={handleDelete}>
+                    <button
+                      className="btn btn-danger"
+                      onClick={handleDelete}
+                      style={{ marginTop: "1rem" }}
+                    >
                       Delete Product
                     </button>
                   </div>
