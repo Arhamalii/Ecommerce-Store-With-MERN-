@@ -1,11 +1,15 @@
-import { Checkbox, Radio } from "antd";
+import { Checkbox, Radio, ShoppingCartOutlined } from "@ant-design/icons";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Layout from "../../Component/Layout";
 import { prices } from "../../Component/Prices";
 import { useCart } from "../../context/Cart";
+import Hero from "../../Component/Hero/Hero";
+import Feature from "../../Component/Feature/Feature";
+import Banner1 from "../../Component/Banner1/Banner1";
+import BnrQform from "../../Component/BannerQeryform/bnrQform";
 import "./Home.css";
 
 const Home = () => {
@@ -119,104 +123,97 @@ const Home = () => {
       console.log(error);
     }
   };
+  // FUNCTION FOR DISPLAY ONLY 4 PRODUCT
+  const limitedProduct = products.slice(0, 4);
+  const newArrival = products.slice(4, 8);
 
   return (
     <Layout title={"Home E-Commerce"}>
-      <div className="container-fluid">
-        <div className="row" style={{ minHeight: "85vh" }}>
-          <div className=" col-md-3">
-            <div className="text">
-              {/*                    filter by price                 */}
-              <h4 className="mx-3 mt-5">Filter By catageory</h4>
-              <div className="d-flex flex-column mx-3">
-                {catageory?.map((c) => (
-                  <Checkbox
-                    key={c._id}
-                    onChange={(e) => handlerFilter(e.target.checked, c._id)}
-                  >
-                    {c.name}
-                  </Checkbox>
-                ))}
-              </div>
-              {/*                     filter by price                 */}
-              <h4 className="mx-3 mt-3 ">Filter By price</h4>
-              <div className="d-flex flex-column mx-3">
-                <Radio.Group onChange={(e) => setRadio(e.target.value)}>
-                  {prices?.map((p) => (
-                    <div key={p.id}>
-                      <Radio value={p.array}> {p.name}</Radio>
-                    </div>
-                  ))}
-                </Radio.Group>
-              </div>
-              <div className="d-flex flex-column w-50  mt-4  mx-3">
-                <button
-                  className="btn btn-danger"
-                  onClick={() => window.location.reload()}
-                >
-                  Reset Filters
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-9">
-            <div className="text-center">
-              <h2 className="my-4">Filter Products</h2>
-            </div>
-            <div className="d-flex flex-wrap">
-              {products?.map((p) => (
-                <div key={p._id}>
-                  <div className="card m-2 " style={{ width: "18rem" }}>
-                    <img
-                      src={`/api/v1/products/product-photo/${p._id}`}
-                      className="card-img-top"
-                      alt={p.name}
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{p.name}</h5>
-                      <p className="card-text">{p.description}</p>
-                      {/* <p className="card-text">{p.category.name}</p> */}
-                      <p className="card-text">{p.price}</p>
-                      <button
-                        className="btn btn-secondary ms-1"
-                        onClick={() => {
-                          setCart([...cart, p]);
-                          localStorage.setItem(
-                            "cart",
-                            JSON.stringify([...cart, p])
-                          );
-                          toast.success("Item added TO Cart");
-                        }}
-                      >
-                        Add to Cart
-                      </button>
-                      <button
-                        className="btn btn-primary mx-2"
-                        onClick={() => Navigate(`/product/${p.slug}`)}
-                      >
-                        More Details
-                      </button>
-                    </div>
+      <Hero />
+      <Feature />
+
+      <section id="product1" className="section-p1">
+        <h2>Feature Product</h2>
+        <p>Summer Collection New Arival Desigin</p>
+        <div className="proContainer">
+          {limitedProduct.map((p) => (
+            <Link to={`/product/${p.slug}`}>
+              <div key={p._id} className="pro">
+                <img
+                  src={`/api/v1/products/product-photo/${p._id}`}
+                  alt={p.name}
+                />
+
+                <div className="des">
+                  <h5>{p.name}</h5>
+                  <span>{p.description}</span>
+                  <div className="start">
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
                   </div>
+                  <h4>${p.price}</h4>
                 </div>
-              ))}
-            </div>
-            <div className="m-2 p-3">
-              {button && products && products.length < total && (
-                <button
-                  className="btn btn-danger"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setPage((prev) => prev + 1);
-                  }}
-                >
-                  {loading ? "Loading ......" : "Loadmore"}
-                </button>
-              )}
-            </div>
-          </div>
+                <Link to="/">
+                  <ShoppingCartOutlined
+                    className="fa"
+                    onClick={() => {
+                      setCart([...cart, p]);
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, p])
+                      );
+                      toast.success("Item added TO Cart");
+                    }}
+                  />
+                </Link>
+              </div>
+            </Link>
+          ))}
         </div>
-      </div>
+      </section>
+      <Banner1 />
+      {/* NEW ARRIVAL  */}
+      <section id="product1" className="section-p1">
+        <h2>New Arival</h2>
+        <p>Summer Collection New Arival Desigin</p>
+        <div className="proContainer">
+          {newArrival.map((p) => (
+            <div key={p._id} className="pro">
+              <img
+                src={`/api/v1/products/product-photo/${p._id}`}
+                alt={p.name}
+              />
+
+              <div className="des">
+                <h5>{p.name}</h5>
+                <span>{p.description}</span>
+                <div className="start">
+                  <i className="fas fa-star"></i>
+                  <i className="fas fa-star"></i>
+                  <i className="fas fa-star"></i>
+                  <i className="fas fa-star"></i>
+                  <i className="fas fa-star"></i>
+                </div>
+                <h4>${p.price}</h4>
+              </div>
+              <Link to="/product/:slug">
+                <ShoppingCartOutlined
+                  className="fa"
+                  onClick={() => {
+                    setCart([...cart, p]);
+                    localStorage.setItem("cart", JSON.stringify([...cart, p]));
+                    toast.success("Item added TO Cart");
+                  }}
+                />
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+      <BnrQform />
     </Layout>
   );
 };
