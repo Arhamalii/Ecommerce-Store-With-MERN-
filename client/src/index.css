@@ -158,6 +158,10 @@ body {
   background-image: url(./img/hero4.png);
 }
 
+#hero button{
+  background-image: url(./img/button.png);
+}
+
 /* ==================================BANNER================================== */
 
 #banner {
@@ -188,7 +192,7 @@ body {
 }
 
 .newsletter {
-  background-image: url(./img/banner/b18.jpg);
+  background-image: url(./img/banner/b14.png);
 }
 
 /* ===================MEDIA QUERRY================================== */
