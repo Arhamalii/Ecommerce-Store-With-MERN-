@@ -63,7 +63,9 @@ const ProductDetail = () => {
         <div className="single-pro-details">
           {product && (
             <div key={product._id}>
-              <h6>{product?.category?.name}</h6>
+              <h5 style={{ fontSize: "1rem" }}>
+                Category / {product?.category?.name}
+              </h5>
               <h4>{product?.name}</h4>
               <h2>{product?.price} $</h2>
               <select className="focused">

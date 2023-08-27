@@ -32,13 +32,13 @@ const Header = () => {
         <img src={logo} className="logo" alt="" />
       </Link>
 
-      <SearchForm />
       <div>
         <ul
           id="navbar"
           className={open ? "active" : ""}
           style={{ margin: "0" }}
         >
+          <SearchForm />
           <li>
             <Link className={location.pathname === "/" ? "active" : ""} to="/">
               home

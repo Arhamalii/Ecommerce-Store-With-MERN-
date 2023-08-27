@@ -12,6 +12,9 @@ footer .col1 {
   min-width: 250px;
   margin-bottom: 20px;
 }
+footer .col1 p a {
+  color: #465b52;
+}
 
 footer .col1:first-child {
   flex: 1;
@@ -32,7 +35,7 @@ footer h4 {
 
 footer p {
   font-size: 13px;
-  margin: 0px 0px 8px 0px;
+  margin: 6px 0px 8px 0px;
 }
 
 footer Link {
@@ -50,6 +53,8 @@ footer .follow {
 footer .follow i {
   color: #465b52;
   padding: 4px;
+  font-size: 1.2rem;
+  margin-right: 0.46rem;
   cursor: pointer;
 }
 

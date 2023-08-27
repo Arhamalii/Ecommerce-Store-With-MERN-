@@ -10,13 +10,13 @@ const Footer = () => {
         <div className="col1">
           <img src={logo} alt="ok" />
           <p>
-            <strong>Address:</strong> Block "R" North Nazmabad
+            <strong>Address:</strong> Street 123 Karachi Pakistan
           </p>
           <p>
-            <strong>Phone:</strong> 03198167101 /
+            <strong>Phone:</strong> +92 1020304050
           </p>
           <p>
-            <strong>Hours:</strong> 10:00-18:00.Mon-Sat
+            <strong>Days:</strong> Mon-Sat
           </p>
           <div className="follow">
             <h4>Follow Us</h4>
@@ -33,45 +33,35 @@ const Footer = () => {
         <div className="col1">
           <h4>About</h4>
           <p>
-            <Link to="/" />
-            About Us
+            <Link to="/">About Us</Link>
           </p>
           <p>
-            <Link to="/" />
-            Delivery Information
+            <Link to="/dashboard/user/orders">Delivery Information</Link>
           </p>
           <p>
-            <Link to="/" />
-            Privicy &amp; Policy
+            <Link to="/">Privicy &amp; Policy</Link>
           </p>
           <p>
-            <Link to="/" />
-            Contact Us
+            <Link to="/">Contact Us</Link>
           </p>
         </div>
 
         <div className="col1">
           <h4>My Account</h4>
-
           <p>
-            <Link to="/" />
-            Sign In
+            <Link to="/login">Sign In</Link>
           </p>
           <p>
-            <Link to="/" />
-            View Cart
+            <Link to="/cart">View Cart</Link>
           </p>
           <p>
-            <Link to="/" />
-            My wistlist
+            <Link to="/dashboard/user">My Profile</Link>
           </p>
           <p>
-            <Link to="/" />
-            Track My Order
+            <Link to="/dashboard/user/orders">Track My Order</Link>
           </p>
           <p>
-            <Link to="/" />
-            Help
+            <Link to="/">Help</Link>
           </p>
         </div>
         <div className="col install">
@@ -81,7 +71,7 @@ const Footer = () => {
             <img src={app} alt="ok" />
             <img src={play} alt="ok" />
           </div>
-          <p>Payment GatWay</p>
+          <p>Payment Gateway</p>
           <img src={pay} alt="ok" />
         </div>
         <div className="copyright">

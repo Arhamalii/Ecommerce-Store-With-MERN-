@@ -160,3 +160,12 @@
     padding: 10px 30px;
   }
 }
+
+@media screen and (max-width: 1218px) and (min-width: 1034px) {
+  #header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 35px;
+  }
+}
