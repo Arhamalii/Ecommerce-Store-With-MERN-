@@ -9,7 +9,7 @@ footer .col1 {
   flex-direction: column;
   padding: 10px 20px;
   flex-basis: 25%;
-  min-width: 250px;
+  min-width: 180px;
   margin-bottom: 20px;
 }
 footer .col1 p a {
@@ -17,6 +17,11 @@ footer .col1 p a {
 }
 
 footer .col1:first-child {
+  min-width: 200px;
+  flex: 1;
+}
+footer .install {
+  min-width: 200px;
   flex: 1;
 }
 footer .col1:first-child img {
@@ -79,11 +84,18 @@ footer .copyright {
   text-align: center;
 }
 
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 579px) {
   footer .col1:first-child img {
     max-width: 50%;
     margin: auto;
-    margin-left: 31vw !important;
+    margin-left: 20vw !important;
     margin-bottom: 2rem;
+  }
+}
+
+@media screen and (max-width: 798px) {
+  .row {
+    margin-left: 1rem;
+    justify-content: center;
   }
 }

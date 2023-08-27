@@ -1,7 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Style.css";
-
 const Banner1 = () => {
+  const Navigate = useNavigate();
   return (
     <>
       <section id="banner" className="section-m1">
@@ -9,7 +10,9 @@ const Banner1 = () => {
         <h2>
           Upto <span> 70% Off </span> to all T-Shirt and Accessories
         </h2>
-        <button className="normal">Explore More</button>
+        <button className="normal" onClick={() => Navigate("/all-products")}>
+          Explore More
+        </button>
       </section>
     </>
   );

@@ -79,8 +79,13 @@ body {
 #hero {
   background-image: url(./img/hero4.png);
 }
+@media screen and (max-width: 900px) {
+  #hero {
+    background-image: url(./pages//Auth//Register/bg-registration-form-1.jpg);
+  }
+}
 
-#hero button{
+#hero button {
   background-image: url(./img/button.png);
 }
 
@@ -119,12 +124,6 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
-
-
-
-
-
 
 /* ===================MEDIA QUERRY================================== */
 
@@ -179,11 +178,6 @@ input::-webkit-inner-spin-button {
     display: none;
   }
 
-  #hero {
-    height: 70vh;
-    padding: 0px 80px;
-    background-position: top 30% right 30%;
-  }
   #feature {
     justify-content: center;
   }

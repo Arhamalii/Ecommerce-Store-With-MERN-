@@ -25,7 +25,6 @@ import Orders from "./pages/users/Orders";
 import Profile from "./pages/users/Profile";
 import Dashboard from "./pages/users/dashboard";
 
-
 const App = () => {
   return (
     <>

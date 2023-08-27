@@ -25,6 +25,7 @@ const ProductDetail = () => {
         `/api/v1/products/get-product/${params.slug}`
       );
       setProduct(data?.singleProduct);
+      console.log("p id ", data?.singleProduct?.category);
       similarProudctHandler(
         data?.singleProduct._id,
         data?.singleProduct.category._id
@@ -63,9 +64,7 @@ const ProductDetail = () => {
         <div className="single-pro-details">
           {product && (
             <div key={product._id}>
-              <h5 style={{ fontSize: "1rem" }}>
-                Category / {product?.category?.name}
-              </h5>
+              <h6>{product?.category?.name}</h6>
               <h4>{product?.name}</h4>
               <h2>{product?.price} $</h2>
               <select className="focused">

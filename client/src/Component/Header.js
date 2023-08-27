@@ -57,9 +57,9 @@ const Header = () => {
               <button className="dropbtn">categories</button>
               <div className="dropdown-content">
                 {categories?.map((c) => (
-                  <li key={c._id} className="text-start py-2 px-4 ">
+                  <div key={c._id} className="text-start py-2 px-4 ">
                     <Link to={`/category/${c.slug}`}> {c.name}</Link>
-                  </li>
+                  </div>
                 ))}
               </div>
             </div>
@@ -85,7 +85,7 @@ const Header = () => {
               </li>
             </>
           ) : (
-            <div className="dropdown">
+            <div className="dropdown d-modify">
               <button className="dropbtn"> {auth?.user?.name}</button>
               <div className="dropdown-content">
                 <li style={{ paddingTop: ".6rem", paddingBottom: ".6rem" }}>
@@ -104,7 +104,7 @@ const Header = () => {
               </div>
             </div>
           )}
-          <Badge count={cart?.length}>
+          <Badge className="lg-bag" count={cart?.length}>
             <li id="lg-bag">
               <Link
                 to="/cart"
@@ -120,9 +120,16 @@ const Header = () => {
         </ul>
       </div>
       <div id="mobile">
-        <Link>
-          <i className="fa fa-thin fa-cart-shopping" />
-        </Link>
+        <Badge count={cart?.length}>
+          <div id="mobile">
+            <Link
+              to="/cart"
+              className={location.pathname === "/cart" ? "active" : ""}
+            >
+              <i className="fa fa-thin fa-cart-shopping" />
+            </Link>
+          </div>
+        </Badge>
         <i id="bar" className="fas fa-outdent" onClick={() => setOpen(true)} />
       </div>
     </section>

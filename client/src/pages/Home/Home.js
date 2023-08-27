@@ -2,7 +2,7 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Banner1 from "../../Component/Banner1/Banner1";
 import BnrQform from "../../Component/BannerQeryform/bnrQform";
 import Feature from "../../Component/Feature/Feature";
@@ -14,6 +14,7 @@ import "./Home.css";
 const Home = () => {
   const [products, setProduct] = useState([]);
   const [cart, setCart] = useCart();
+  const Navigate = useNavigate();
 
   // get all product from backend
   const getAllProducts = async () => {
@@ -43,8 +44,8 @@ const Home = () => {
         <p>Summer Collection New Arival Desigin</p>
         <div className="proContainer">
           {limitedProduct.map((p) => (
-            <Link to={`/product/${p.slug}`}>
-              <div key={p._id} className="pro">
+            <Link to={`/product/${p.slug}`} key={p._id}>
+              <div className="pro">
                 <img
                   src={`/api/v1/products/product-photo/${p._id}`}
                   alt={p.name}
@@ -62,7 +63,7 @@ const Home = () => {
                   </div>
                   <h4>${p.price}</h4>
                 </div>
-                <Link to="/">
+                <Link>
                   <ShoppingCartOutlined
                     className="fa fal fa-shopping-cart"
                     onClick={() => {
@@ -87,8 +88,8 @@ const Home = () => {
         <p>Summer Collection New Arival Desigin</p>
         <div className="proContainer">
           {newArrival.map((p) => (
-            <Link to={`/product/${p.slug}`}>
-              <div key={p._id} className="pro">
+            <Link to={`/product/${p.slug}`} key={p._id}>
+              <div className="pro">
                 <img
                   src={`/api/v1/products/product-photo/${p._id}`}
                   alt={p.name}
@@ -106,7 +107,7 @@ const Home = () => {
                   </div>
                   <h4>${p.price}</h4>
                 </div>
-                <Link to="/">
+                <Link>
                   <ShoppingCartOutlined
                     className="fa fal fa-shopping-cart"
                     onClick={() => {
