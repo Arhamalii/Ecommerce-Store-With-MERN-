@@ -1,21 +1,18 @@
+
+
+
 footer {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
-}
-.col {
-  flex: 1 0;
+  flex-wrap: wrap;
 }
 
 footer .col1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 20px;
-  justify-self: center;
-
-  flex-wrap: wrap;
-  min-width: 250px;
+  padding: 10px 20px;
+  margin-bottom: 20px ;
 }
 
 footer .logo {
@@ -23,8 +20,7 @@ footer .logo {
 }
 
 footer h4 {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 14px;
   padding-bottom: 20px;
 }
 
@@ -33,7 +29,8 @@ footer p {
   margin: 0px 0px 8px 0px;
 }
 
-footer a {
+footer Link {
+  display: block;
   font-size: 13px;
   text-decoration: none;
   color: #222;
@@ -50,13 +47,14 @@ footer .follow i {
   cursor: pointer;
 }
 
-footer .install .footer-row img {
+footer .install .row img {
   border: 1px solid #088178;
   border-radius: 5px;
-  margin-right: 0.6rem;
 }
 
 footer .install img {
+  height: fit-content;
+  width: fit-content;
   margin: 10px 0px 15px 0px;
 }
 
@@ -70,14 +68,29 @@ footer .copyright {
   text-align: center;
 }
 
-@media (max-width: 799px) {
-  .section-p1 {
-    padding: 40px 20px;
-  }
-}
 
-@media (max-width: 477px) {
-  footer .copyright {
-    text-align: start;
-  }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

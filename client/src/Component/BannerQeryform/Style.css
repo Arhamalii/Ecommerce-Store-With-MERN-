@@ -14,7 +14,7 @@
     background-repeat: no-repeat;
     min-width: 530px;
     height: 50vh;
-    background-position: center;
+  background-position: 55% 7%;
     background-size: cover;
     padding: 30px;
   }
@@ -119,6 +119,9 @@
     #banner3 .banner-box {
       width: 100%;
     }
+    .section-p1 {
+    padding: 40px 40px;
+}
   
     /* .section-p1 {
       padding: 40px 20px;

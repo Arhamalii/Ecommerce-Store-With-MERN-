@@ -22,7 +22,7 @@ const Header = () => {
     localStorage.removeItem("auth");
     setTimeout(() => {
       toast.success("Logout Succesfully");
-      Navigate("/home");
+      Navigate("/");
     }, 50);
   };
 

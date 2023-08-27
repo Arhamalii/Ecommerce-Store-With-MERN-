@@ -25,11 +25,12 @@ import Orders from "./pages/users/Orders";
 import Profile from "./pages/users/Profile";
 import Dashboard from "./pages/users/dashboard";
 
+
 const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/all-products" element={<ShopPage />} />
         <Route path="/search" element={<Search />} />
         <Route path="/product/:slug" element={<ProductDetail />} />

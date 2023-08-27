@@ -143,44 +143,6 @@ const ProductDetail = () => {
         ))}
       </section>
 
-      {/* <div className="row">
-        <h3>Related Products</h3>
-        <div className="d-flex flex-wrap">
-          {relatedProducts?.map((p) => (
-            <Link
-              key={p._id}
-              to={`/dashboard/admin/update-product/${p.slug}`}
-              className="text-dark"
-              style={{ textDecoration: "none" }}
-            >
-              <div className="card m-2" style={{ width: "18rem" }}>
-                <img
-                  src={`/api/v1/products/product-photo/${p._id} `}
-                  className="card-img-top"
-                  alt={p.name}
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{p.name}</h5>
-                  <p className="card-text">{p.description}</p>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                      setCart([...cart, p]);
-                      localStorage.setItem(
-                        "cart",
-                        JSON.stringify([...cart, p])
-                      );
-                      toast.success("Item added TO Cart");
-                    }}
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div> */}
     </Layout>
   );
 };

@@ -125,7 +125,7 @@ const Home = () => {
   };
   // FUNCTION FOR DISPLAY ONLY 4 PRODUCT
   const limitedProduct = products.slice(0, 4);
-  const newArrival = products.slice(4, 8);
+  const newArrival = products.slice( 4,8);
 
   return (
     <Layout title={"Home E-Commerce"}>

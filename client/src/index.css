@@ -38,7 +38,7 @@ p {
 }
 
 .section-p1 {
-  padding: 40px 80px;
+  padding: 40px 40px;
 }
 .section-m1 {
   margin: 40px 0px;
@@ -93,13 +93,11 @@ body {
 /* =================================SM =BANNER================================== */
 
 #sm-banner .banner-box {
-  /* background: url(./img/banner/b17.jpg); */
   background: url(./img/banner/b17.jpg);
   background-repeat: no-repeat;
   background-position: 55% 7%;
 }
 #sm-banner .banner-box2 {
-  /* background: url(./img/banner/b10.jpg); */
   background: url(./img/banner/b10.jpg);
   background-repeat: no-repeat;
 }
@@ -121,6 +119,13 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+
+
+
+
+
+
 /* ===================MEDIA QUERRY================================== */
 
 @media (max-width: 799px) {
