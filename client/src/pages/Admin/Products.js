@@ -107,7 +107,7 @@ const Products = () => {
               </div>
             </Link>
           ))}
-          <div className="mx-auto">
+          <div className="mx-auto btn_load">
             {button && products && products.length < total && (
               <button
                 className="pagination_btn "

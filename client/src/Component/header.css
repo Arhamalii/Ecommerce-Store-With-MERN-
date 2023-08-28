@@ -58,7 +58,7 @@
   background-color: transparent;
   color: #1a1a1a;
   font-weight: 600;
-  padding: 16px;
+  padding: 20px !important;
   font-size: 16px;
   border: none;
 }
@@ -99,6 +99,17 @@
   display: block;
 }
 
+@media screen and (max-width: 1218px) and (min-width: 1034px) {
+  #header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 35px;
+  }
+}
+.dropbtn {
+  padding: 10px !important;
+}
 @media (max-width: 1034px) {
   .section-p1 {
     padding: 40px 40px;
@@ -123,10 +134,10 @@
   #navbar.active {
     right: 0px;
   }
-  .dropbtn {
-    padding: 0px;
-  }
 
+  .dropbtn {
+    padding: 0px !important;
+  }
   .d-modify {
     padding: 0 20px;
     padding-bottom: 25px;
@@ -189,15 +200,4 @@
     padding: 0 15px;
     position: relative;
   }
-}
-@media screen and (max-width: 1218px) and (min-width: 1034px) {
-  #header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 35px;
-  }
-}
-.dropbtn {
-  padding: 10px !important;
 }

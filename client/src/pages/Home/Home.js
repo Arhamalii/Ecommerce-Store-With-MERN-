@@ -2,7 +2,7 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Banner1 from "../../Component/Banner1/Banner1";
 import BnrQform from "../../Component/BannerQeryform/bnrQform";
 import Feature from "../../Component/Feature/Feature";
@@ -14,7 +14,6 @@ import "./Home.css";
 const Home = () => {
   const [products, setProduct] = useState([]);
   const [cart, setCart] = useCart();
-  const Navigate = useNavigate();
 
   // get all product from backend
   const getAllProducts = async () => {
@@ -35,7 +34,7 @@ const Home = () => {
   const newArrival = products.slice(4, 8);
 
   return (
-    <Layout title={"Home E-Commerce"}>
+    <Layout title={"Cora-Home"}>
       <Hero />
       <Feature />
 

@@ -40,7 +40,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <Layout title="Register - Ecommer App">
+    <Layout title="Forgot Password ">
       <div className="form-container ">
         <form id="forgot_form" onSubmit={submitHandler}>
           <h4 className="title"> Forgot Password</h4>

@@ -80,7 +80,7 @@ const Cart = () => {
   };
 
   return (
-    <Layout>
+    <Layout title={"Your Cart "}>
       <div>
         <section id="cart" className="section-p1">
           <h4 className="text-center mb-4">

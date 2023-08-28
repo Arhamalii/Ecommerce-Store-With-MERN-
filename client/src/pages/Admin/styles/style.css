@@ -173,3 +173,10 @@
     column-gap: 1.2rem;
   }
 }
+
+@media screen and (min-width: 1516px) {
+  .btn_load {
+    width: 100vw !important;
+    margin: auto;
+  }
+}
