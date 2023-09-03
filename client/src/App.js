@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import AdminRoute from "./Component/Routes/AdminRoute";
 import PrivateRoute from "./Component/Routes/Private";
+import ScrollToTop from "./functionScroll";
 import About from "./pages/About/About";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminOrder from "./pages/Admin/AdminOrder";
@@ -28,6 +29,7 @@ import Dashboard from "./pages/users/dashboard";
 const App = () => {
   return (
     <>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/all-products" element={<ShopPage />} />

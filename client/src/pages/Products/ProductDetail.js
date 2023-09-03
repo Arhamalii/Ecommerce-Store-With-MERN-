@@ -25,7 +25,6 @@ const ProductDetail = () => {
         `/api/v1/products/get-product/${params.slug}`
       );
       setProduct(data?.singleProduct);
-      console.log("p id ", data?.singleProduct?.category);
       similarProudctHandler(
         data?.singleProduct._id,
         data?.singleProduct.category._id
@@ -124,7 +123,12 @@ const ProductDetail = () => {
                   </div>
                   <h4>78$</h4>
                 </div>
-                <Link to="/">
+                <div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                >
                   <ShoppingCartOutlined
                     className="fa"
                     onClick={() => {
@@ -136,7 +140,7 @@ const ProductDetail = () => {
                       toast.success("Item added TO Cart");
                     }}
                   />
-                </Link>
+                </div>
               </div>
             </Link>
           ))}

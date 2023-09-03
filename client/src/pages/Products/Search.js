@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Layout from "../../Component/Layout";
 import { useCart } from "../../context/Cart";
 import { useSearch } from "../../context/search";
+import "./search.css";
 
 const Search = () => {
   const [values] = useSearch();
@@ -21,10 +22,14 @@ const Search = () => {
           : ` Total ${values?.results.length} Products`}
       </h2>
       <section id="product1_new" className="section-p1">
-        <div className="proContainer_new ">
+        <div className="proContainer_newmod ">
           {values.results?.map((p) => (
-            <Link to={`/product/${p.slug}`} style={{ width: "min-content" }}>
-              <div className="pro" key={p._id}>
+            <Link
+              to={`/product/${p.slug}`}
+              style={{ width: "min-content" }}
+              key={p._id}
+            >
+              <div className="pro">
                 <img
                   src={`/api/v1/products/product-photo/${p._id}`}
                   alt={p.name}
@@ -40,15 +45,18 @@ const Search = () => {
                   </div>
                   <h4>$ {p.price}</h4>
                 </div>
-                <Link
-                  onClick={() => {
+                <div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
                     setCart([...cart, p]);
                     localStorage.setItem("cart", JSON.stringify([...cart, p]));
                     toast.success("Item added TO Cart");
                   }}
                 >
                   <i className="fa fal fa-shopping-cart" />
-                </Link>
+                </div>
               </div>
             </Link>
           ))}

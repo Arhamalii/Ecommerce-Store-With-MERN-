@@ -62,7 +62,12 @@ const Home = () => {
                   </div>
                   <h4>${p.price}</h4>
                 </div>
-                <Link>
+                <div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                >
                   <ShoppingCartOutlined
                     className="fa fal fa-shopping-cart"
                     onClick={() => {
@@ -74,7 +79,7 @@ const Home = () => {
                       toast.success("Item added TO Cart");
                     }}
                   />
-                </Link>
+                </div>
               </div>
             </Link>
           ))}
@@ -106,7 +111,12 @@ const Home = () => {
                   </div>
                   <h4>${p.price}</h4>
                 </div>
-                <Link>
+                <div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                >
                   <ShoppingCartOutlined
                     className="fa fal fa-shopping-cart"
                     onClick={() => {
@@ -118,7 +128,7 @@ const Home = () => {
                       toast.success("Item added TO Cart");
                     }}
                   />
-                </Link>
+                </div>
               </div>
             </Link>
           ))}

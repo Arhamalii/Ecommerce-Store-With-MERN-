@@ -50,8 +50,12 @@ const CategoryProduct = () => {
           </div>
           <div id="product1_new">
             {products?.map((p) => (
-              <Link to={`/product/${p.slug}`} style={{ width: "min-content" }}>
-                <div className="pro" key={p._id}>
+              <Link
+                to={`/product/${p.slug}`}
+                style={{ width: "min-content" }}
+                key={p._id}
+              >
+                <div className="pro">
                   <img
                     src={`/api/v1/products/product-photo/${p._id}`}
                     alt={p.name}
@@ -67,8 +71,10 @@ const CategoryProduct = () => {
                     </div>
                     <h4>$ {p.price}</h4>
                   </div>
-                  <Link
-                    onClick={() => {
+                  <div
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
                       setCart([...cart, p]);
                       localStorage.setItem(
                         "cart",
@@ -78,7 +84,7 @@ const CategoryProduct = () => {
                     }}
                   >
                     <i className="fa fal fa-shopping-cart" />
-                  </Link>
+                  </div>
                 </div>
               </Link>
             ))}

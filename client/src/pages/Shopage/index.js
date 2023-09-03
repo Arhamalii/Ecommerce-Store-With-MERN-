@@ -205,15 +205,17 @@ const ShopPage = () => {
                   </div>
                   <h4>$ {p.price}</h4>
                 </div>
-                <Link
-                  onClick={() => {
+                <div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     setCart([...cart, p]);
                     localStorage.setItem("cart", JSON.stringify([...cart, p]));
                     toast.success("Item added TO Cart");
                   }}
                 >
                   <i className="fa fal fa-shopping-cart" />
-                </Link>
+                </div>
               </div>
             </Link>
           ))}
